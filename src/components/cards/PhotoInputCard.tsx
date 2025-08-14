@@ -81,7 +81,7 @@ export function PhotoInputCard({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={`
-          transition-all 
+          transition-all mb-0
           duration-200 
           cursor-pointer
           ${getIconColor()}

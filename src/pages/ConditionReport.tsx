@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Camera, AlertTriangle } from 'lucide-react';
 import { Header } from '../components/layout/Header';
 import { PageWrapper } from '../components/layout/PageWrapper';
 import { EquipmentDetailHeaderCard } from '../components/cards/EquipmentDetailHeaderCard';
 import { PhotoInputCard } from '../components/cards/PhotoInputCard';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
+import { AddDamage } from '../components/AddDamage';
 import { useData } from '../hooks/useData';
-import type { PhotoUpload, ConditionReport as ConditionReportType } from '../types';
+import type { PhotoUpload, ConditionReport as ConditionReportType, DamageReport } from '../types';
 
 interface PhotoState {
   id: string;
@@ -27,6 +29,8 @@ export function ConditionReport() {
   const [photos, setPhotos] = useState<PhotoState[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showAddDamage, setShowAddDamage] = useState(false);
+  const [damageReport, setDamageReport] = useState<DamageReport | null>(null);
   
   const equipment = equipmentNumber ? getEquipmentByNumber(equipmentNumber) : null;
   
@@ -212,6 +216,7 @@ export function ConditionReport() {
         equipmentNumber: equipment!.equipmentNumber,
         hourMeterReading: parseFloat(hourMeterReading),
         photos: photoUploads,
+        damageReport: damageReport || undefined,
         submittedAt: new Date()
       };
       
@@ -229,6 +234,28 @@ export function ConditionReport() {
   
   const handleCancel = () => {
     navigate(-1);
+  };
+
+  const handleShowAddDamage = () => {
+    setShowAddDamage(true);
+  };
+
+  const handleAddDamageCancel = () => {
+    setShowAddDamage(false);
+  };
+
+  const handleAddDamageDone = (damage: DamageReport) => {
+    setDamageReport(damage);
+    setShowAddDamage(false);
+  };
+
+  const hasDamageReported = () => {
+    if (!damageReport) return false;
+    return damageReport.structuralBodyDamage || 
+           damageReport.componentAttachmentDamage || 
+           damageReport.tireTrackDamage || 
+           damageReport.overallConditionNotAcceptable ||
+           damageReport.comment.trim() !== '';
   };
   
   if (!equipment) {
@@ -369,8 +396,8 @@ export function ConditionReport() {
                 </span>
               </div>
               
-              {/* Right side: Photo input icon */}
-              <div className="ml-4">
+              {/* Right side: Photo input icon and damage button */}
+              <div className="ml-4 flex items-center space-x-2">
                 <PhotoInputCard
                   id={photo.id}
                   label=""
@@ -379,6 +406,18 @@ export function ConditionReport() {
                   required={photo.required}
                   onFileSelect={(file) => handlePhotoSelect(photo.id, file)}
                 />
+                <button
+                  type="button"
+                  onClick={handleShowAddDamage}
+                  className={`p-2 rounded-lg transition-colors ${
+                    hasDamageReported() 
+                      ? 'text-orange-600 hover:text-orange-700 hover:bg-orange-50 bg-orange-100' 
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  }`}
+                  aria-label={hasDamageReported() ? "Damage reported" : "Add damage"}
+                >
+                  <AlertTriangle className={`w-5 h-5 ${hasDamageReported() ? 'stroke-current' : ''}`} />
+                </button>
               </div>
             </div>
           ))}
@@ -393,6 +432,17 @@ export function ConditionReport() {
   const optionalPhotos = photos.length - totalRequired;
   const progressPercentage = totalRequired > 0 ? (photos.filter(p => p.required && p.file !== null).length / totalRequired) * 100 : 0;
   
+  // Render AddDamage overlay if showAddDamage is true
+  if (showAddDamage) {
+    return (
+      <AddDamage
+        initialDamage={damageReport || undefined}
+        onCancel={handleAddDamageCancel}
+        onDone={handleAddDamageDone}
+      />
+    );
+  }
+
   return (
     <>
       <Header 
@@ -437,6 +487,22 @@ export function ConditionReport() {
             </div>
             
             {renderPhotoInputs()}
+            
+            {/* Existing Damage Button for categories < 2000 */}
+            {equipment.category < 2000 && (
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <Button
+                  type="button"
+                  variant={hasDamageReported() ? "primary" : "secondary"}
+                  onClick={handleShowAddDamage}
+                  icon={Camera}
+                  iconPosition="left"
+                  className={`w-full ${hasDamageReported() ? 'bg-orange-500 hover:bg-orange-600 focus:ring-orange-500' : ''}`}
+                >
+                  {hasDamageReported() ? 'Damage Reported' : 'Existing Damage'}
+                </Button>
+              </div>
+            )}
             
             {errors.photos && (
               <p className="text-sm text-red-600 mt-2">{errors.photos}</p>

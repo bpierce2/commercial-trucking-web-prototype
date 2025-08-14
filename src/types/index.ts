@@ -20,12 +20,22 @@ export interface PhotoUpload {
   uploaded: boolean;
 }
 
+// Damage Report Types
+export interface DamageReport {
+  structuralBodyDamage: boolean;
+  componentAttachmentDamage: boolean;
+  tireTrackDamage: boolean;
+  overallConditionNotAcceptable: boolean;
+  comment: string;
+}
+
 // Condition Report Types
 export interface ConditionReport {
   id: string;
   equipmentNumber: string;
   hourMeterReading: number;
   photos: PhotoUpload[];
+  damageReport?: DamageReport;
   submittedAt: Date;
 }
 
