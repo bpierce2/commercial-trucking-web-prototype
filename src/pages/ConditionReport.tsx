@@ -15,6 +15,7 @@ interface PhotoState {
   file: File | null;
   filename: string;
   base64Data: string;
+  required: boolean;
 }
 
 export function ConditionReport() {
@@ -37,25 +38,52 @@ export function ConditionReport() {
     }
     const getPhotoLayoutAndLabels = (category: number) => {
       if (category < 1000) {
-        // Layout 1: 2 vertically stacked photos
+        // Layout 1: 5 photos with only top-left and bottom-right required
         return [
-          { id: 'photo-1', label: 'Overall View' },
-          { id: 'photo-2', label: 'Detail View' }
+          { id: 'photo-1', label: 'Front View', required: true },
+          { id: 'photo-2', label: 'Rear View', required: false },
+          { id: 'photo-3', label: 'Overall View', required: false },
+          { id: 'photo-4', label: 'Left Side', required: false },
+          { id: 'photo-5', label: 'Right Side', required: true }
         ];
       } else if (category < 2000) {
-        // Layout 2: 5 photos in grid (2-1-2 layout)
+        // Layout 2: 5 photos in grid (2-1-2 layout) - all required
         return [
-          { id: 'photo-1', label: 'Front View' },
-          { id: 'photo-2', label: 'Rear View' },
-          { id: 'photo-3', label: 'Overall View' },
-          { id: 'photo-4', label: 'Left Side' },
-          { id: 'photo-5', label: 'Right Side' }
+          { id: 'photo-1', label: 'Front View', required: true },
+          { id: 'photo-2', label: 'Rear View', required: true },
+          { id: 'photo-3', label: 'Overall View', required: true },
+          { id: 'photo-4', label: 'Left Side', required: true },
+          { id: 'photo-5', label: 'Right Side', required: true }
         ];
       } else {
-        // Layout 3: 20 photos in list
-        return Array.from({ length: 20 }, (_, i) => ({
+        // Layout 3: 20 photos in list - all required
+        const truckInspectionLabels = [
+          'Front Bumper & Grille',
+          'Driver Side Front Tire',
+          'Passenger Side Front Tire',
+          'Left Headlight Assembly',
+          'Right Headlight Assembly',
+          'Windshield Condition',
+          'Driver Side Mirror',
+          'Passenger Side Mirror',
+          'Driver Side Door',
+          'Passenger Side Door',
+          'Engine Compartment',
+          'Fuel Tank & Lines',
+          'Driver Side Rear Tires',
+          'Passenger Side Rear Tires',
+          'Trailer Hitch/Fifth Wheel',
+          'Rear Bumper & Lights',
+          'License Plate & Mounting',
+          'Exhaust System',
+          'Undercarriage View',
+          'Overall Vehicle Condition'
+        ];
+        
+        return truckInspectionLabels.map((label, i) => ({
           id: `photo-${i + 1}`,
-          label: `Photo ${i + 1}`
+          label,
+          required: true
         }));
       }
     };
@@ -65,7 +93,8 @@ export function ConditionReport() {
       ...template,
       file: null,
       filename: '',
-      base64Data: ''
+      base64Data: '',
+      required: template.required
     }));
     
     setPhotos(initialPhotos);
@@ -139,10 +168,12 @@ export function ConditionReport() {
       }
     }
     
-    // Validate photos
-    const uploadedPhotos = photos.filter(p => p.file !== null);
-    if (uploadedPhotos.length === 0) {
-      newErrors.photos = 'At least one photo is required';
+    // Validate required photos
+    const requiredPhotos = photos.filter(p => p.required);
+    const uploadedRequiredPhotos = requiredPhotos.filter(p => p.file !== null);
+    if (uploadedRequiredPhotos.length < requiredPhotos.length) {
+      const missing = requiredPhotos.length - uploadedRequiredPhotos.length;
+      newErrors.photos = `${missing} required photo${missing > 1 ? 's' : ''} missing`;
     }
     
     setErrors(newErrors);
@@ -204,19 +235,58 @@ export function ConditionReport() {
     }
     
     if (equipment.category < 1000) {
-      // Layout 1: 2 vertical photos
+      // Layout 1: 5-photo grid (same as 1000-2000) with only top-left and bottom-right required
+      // Ensure we have at least 5 photos
+      if (photos.length < 5) {
+        return <div className="text-center py-4 text-gray-500">Loading photo inputs...</div>;
+      }
+      
       return (
         <div className="space-y-4">
-          {photos.map((photo) => (
-            <PhotoInputCard
-              key={photo.id}
-              id={photo.id}
-              label={photo.label}
-              hasFile={photo.file !== null}
-              filename={photo.filename}
-              onFileSelect={(file) => handlePhotoSelect(photo.id, file)}
-            />
-          ))}
+          {/* First row: 2 photos */}
+          <div className="grid grid-cols-2 gap-4">
+            {photos.slice(0, 2).map((photo) => (
+              <PhotoInputCard
+                key={photo.id}
+                id={photo.id}
+                label={photo.label}
+                hasFile={photo.file !== null}
+                filename={photo.filename}
+                required={photo.required}
+                onFileSelect={(file) => handlePhotoSelect(photo.id, file)}
+              />
+            ))}
+          </div>
+          
+          {/* Second row: 1 photo centered */}
+          <div className="flex justify-center">
+            <div className="w-1/2">
+              <PhotoInputCard
+                key={photos[2].id}
+                id={photos[2].id}
+                label={photos[2].label}
+                hasFile={photos[2].file !== null}
+                filename={photos[2].filename}
+                required={photos[2].required}
+                onFileSelect={(file) => handlePhotoSelect(photos[2].id, file)}
+              />
+            </div>
+          </div>
+          
+          {/* Third row: 2 photos */}
+          <div className="grid grid-cols-2 gap-4">
+            {photos.slice(3, 5).map((photo) => (
+              <PhotoInputCard
+                key={photo.id}
+                id={photo.id}
+                label={photo.label}
+                hasFile={photo.file !== null}
+                filename={photo.filename}
+                required={photo.required}
+                onFileSelect={(file) => handlePhotoSelect(photo.id, file)}
+              />
+            ))}
+          </div>
         </div>
       );
     } else if (equipment.category < 2000) {
@@ -237,6 +307,7 @@ export function ConditionReport() {
                 label={photo.label}
                 hasFile={photo.file !== null}
                 filename={photo.filename}
+                required={photo.required}
                 onFileSelect={(file) => handlePhotoSelect(photo.id, file)}
               />
             ))}
@@ -251,6 +322,7 @@ export function ConditionReport() {
                 label={photos[2].label}
                 hasFile={photos[2].file !== null}
                 filename={photos[2].filename}
+                required={photos[2].required}
                 onFileSelect={(file) => handlePhotoSelect(photos[2].id, file)}
               />
             </div>
@@ -265,6 +337,7 @@ export function ConditionReport() {
                 label={photo.label}
                 hasFile={photo.file !== null}
                 filename={photo.filename}
+                required={photo.required}
                 onFileSelect={(file) => handlePhotoSelect(photo.id, file)}
               />
             ))}
@@ -272,23 +345,35 @@ export function ConditionReport() {
         </div>
       );
     } else {
-      // Layout 3: 20 photos in list
+      // Layout 3: 20 photos in list format with index on left, icon on right
       // Ensure we have the expected number of photos
       if (photos.length < 20) {
         return <div className="text-center py-4 text-gray-500">Loading photo inputs...</div>;
       }
       
       return (
-        <div className="space-y-4">
-          {photos.map((photo) => (
-            <PhotoInputCard
-              key={photo.id}
-              id={photo.id}
-              label={photo.label}
-              hasFile={photo.file !== null}
-              filename={photo.filename}
-              onFileSelect={(file) => handlePhotoSelect(photo.id, file)}
-            />
+        <div className="space-y-3">
+          {photos.map((photo, index) => (
+            <div key={photo.id} className="flex items-center justify-between py-2 px-1">
+              {/* Left side: Index and label */}
+              <div className="flex-1">
+                <span className="text-sm font-medium text-gray-900">
+                  {index + 1}. {photo.label}
+                </span>
+              </div>
+              
+              {/* Right side: Photo input icon */}
+              <div className="ml-4">
+                <PhotoInputCard
+                  id={photo.id}
+                  label=""
+                  hasFile={photo.file !== null}
+                  filename={photo.filename}
+                  required={photo.required}
+                  onFileSelect={(file) => handlePhotoSelect(photo.id, file)}
+                />
+              </div>
+            </div>
           ))}
         </div>
       );
@@ -296,8 +381,10 @@ export function ConditionReport() {
   };
   
   const uploadedCount = photos.filter(p => p.file !== null).length;
-  const totalRequired = photos.length;
-  const progressPercentage = totalRequired > 0 ? (uploadedCount / totalRequired) * 100 : 0;
+  const requiredPhotos = photos.filter(p => p.required);
+  const totalRequired = requiredPhotos.length;
+  const optionalPhotos = photos.length - totalRequired;
+  const progressPercentage = totalRequired > 0 ? (photos.filter(p => p.required && p.file !== null).length / totalRequired) * 100 : 0;
   
   return (
     <>
@@ -332,7 +419,7 @@ export function ConditionReport() {
                 Equipment Photos
               </h3>
               <p className="text-sm text-gray-500 mb-2">
-                {totalRequired} photos required • {uploadedCount} uploaded
+                {totalRequired} required, {optionalPhotos} optional • {uploadedCount} uploaded
               </p>
               <div className="w-full bg-gray-200 rounded-full h-2">
                 <div 

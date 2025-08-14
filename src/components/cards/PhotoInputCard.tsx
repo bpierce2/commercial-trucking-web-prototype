@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Camera, Upload } from 'lucide-react';
+import { Camera } from 'lucide-react';
 
 interface PhotoInputCardProps {
   id: string;
@@ -8,30 +8,31 @@ interface PhotoInputCardProps {
   filename?: string;
   onFileSelect: (file: File | null) => void;
   className?: string;
+  required?: boolean;
 }
 
 export function PhotoInputCard({ 
   id, 
   label, 
   hasFile, 
-  filename,
   onFileSelect,
-  className = '' 
+  className = '',
+  required = true
 }: PhotoInputCardProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = React.useState(false);
   
-  const stateStyles = hasFile 
-    ? 'bg-emerald-50 border-emerald-200 text-emerald-700' 
-    : 'bg-red-50 border-red-200 text-red-600';
+  const getIconColor = () => {
+    if (hasFile) return 'text-green-500';
+    if (required) return 'text-red-500';
+    return 'text-gray-400';
+  };
   
-  const hoverStyles = hasFile
-    ? 'hover:bg-emerald-100 hover:border-emerald-300'
-    : 'hover:bg-red-100 hover:border-red-300';
-  
-  const dragStyles = isDragging
-    ? 'border-blue-400 bg-blue-50'
-    : '';
+  const getHoverColor = () => {
+    if (hasFile) return 'hover:text-green-600';
+    if (required) return 'hover:text-red-600';
+    return 'hover:text-gray-500';
+  };
   
   const handleClick = () => {
     fileInputRef.current?.click();
@@ -63,7 +64,7 @@ export function PhotoInputCard({
   };
   
   return (
-    <div className={className}>
+    <div className={`flex flex-col items-center space-y-2 ${className}`}>
       <input
         ref={fileInputRef}
         id={id}
@@ -80,50 +81,21 @@ export function PhotoInputCard({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={`
-          w-full 
-          p-4 
-          min-h-[120px]
-          border-2 
-          border-dashed 
-          rounded-lg 
           transition-all 
           duration-200 
           cursor-pointer
-          flex 
-          flex-col 
-          items-center 
-          justify-center 
-          space-y-2
-          ${stateStyles} 
-          ${hoverStyles}
-          ${dragStyles}
+          ${getIconColor()}
+          ${getHoverColor()}
+          ${isDragging ? 'scale-110' : 'hover:scale-105'}
         `}
       >
-        {/* Icon */}
-        <div className="flex items-center justify-center">
-          {hasFile ? (
-            <Camera className="w-6 h-6" />
-          ) : (
-            <Upload className="w-6 h-6" />
-          )}
-        </div>
-        
-        {/* Label */}
-        <p className="text-sm font-medium text-center">
-          {label}
-        </p>
-        
-        {/* Status Text */}
-        {hasFile ? (
-          <p className="text-xs text-center truncate max-w-full px-2">
-            {filename}
-          </p>
-        ) : (
-          <p className="text-xs text-center">
-            Tap to add photo
-          </p>
-        )}
+        <Camera className="w-8 h-8" />
       </button>
+      
+      {/* Optional Label */}
+      <p className="text-xs text-gray-600 text-center">
+        {label}
+      </p>
     </div>
   );
 }
