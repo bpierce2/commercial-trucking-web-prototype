@@ -27,7 +27,8 @@ export const pickupEquipment: Equipment[] = [
     branchCode: 'A01',
     needByTime: '2:30 PM Today',
     imageUrl: 'https://picsum.photos/300/200?random=1',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 87
   },
   {
     id: 'pickup-002', 
@@ -38,7 +39,8 @@ export const pickupEquipment: Equipment[] = [
     branchCode: 'D23',
     needByTime: '11:00 AM Today',
     imageUrl: 'https://picsum.photos/300/200?random=2',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 23
   },
   {
     id: 'pickup-003',
@@ -49,7 +51,8 @@ export const pickupEquipment: Equipment[] = [
     branchCode: 'P45',
     needByTime: '9:15 AM Tomorrow',
     imageUrl: 'https://picsum.photos/300/200?random=3',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 56
   },
   {
     id: 'pickup-004',
@@ -60,7 +63,8 @@ export const pickupEquipment: Equipment[] = [
     branchCode: 'S67',
     needByTime: '4:00 PM Today',
     imageUrl: 'https://picsum.photos/300/200?random=4',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 14
   },
   {
     id: 'pickup-005',
@@ -71,7 +75,8 @@ export const pickupEquipment: Equipment[] = [
     branchCode: 'A01',
     needByTime: '6:45 AM Tomorrow',
     imageUrl: 'https://picsum.photos/300/200?random=5',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 92
   },
   {
     id: 'pickup-006',
@@ -82,7 +87,8 @@ export const pickupEquipment: Equipment[] = [
     branchCode: 'D23',
     needByTime: '1:30 PM Today',
     imageUrl: 'https://picsum.photos/300/200?random=6',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 45
   },
   {
     id: 'pickup-007',
@@ -93,7 +99,8 @@ export const pickupEquipment: Equipment[] = [
     branchCode: 'P45',
     needByTime: '10:00 AM Today',
     imageUrl: 'https://picsum.photos/300/200?random=7',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 78
   },
   {
     id: 'pickup-008',
@@ -104,7 +111,8 @@ export const pickupEquipment: Equipment[] = [
     branchCode: 'S67',
     needByTime: '8:30 AM Tomorrow',
     imageUrl: 'https://picsum.photos/300/200?random=8',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 31
   },
   {
     id: 'pickup-009',
@@ -115,7 +123,8 @@ export const pickupEquipment: Equipment[] = [
     branchCode: 'A01',
     needByTime: '3:15 PM Today',
     imageUrl: 'https://picsum.photos/300/200?random=9',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 67
   },
   {
     id: 'pickup-010',
@@ -126,7 +135,8 @@ export const pickupEquipment: Equipment[] = [
     branchCode: 'D23',
     needByTime: '12:45 PM Tomorrow',
     imageUrl: 'https://picsum.photos/300/200?random=10',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 9
   }
 ];
 
@@ -141,7 +151,8 @@ export const deliveryEquipment: Equipment[] = [
     branchCode: 'P45',
     needByTime: '7:00 AM Today',
     imageUrl: 'https://picsum.photos/300/200?random=11',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 74
   },
   {
     id: 'delivery-002',
@@ -152,7 +163,8 @@ export const deliveryEquipment: Equipment[] = [
     branchCode: 'S67',
     needByTime: '5:30 PM Today',
     imageUrl: 'https://picsum.photos/300/200?random=12',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 41
   },
   {
     id: 'delivery-003',
@@ -163,7 +175,8 @@ export const deliveryEquipment: Equipment[] = [
     branchCode: 'A01',
     needByTime: '2:00 PM Tomorrow',
     imageUrl: 'https://picsum.photos/300/200?random=13',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 88
   },
   {
     id: 'delivery-004',
@@ -174,7 +187,8 @@ export const deliveryEquipment: Equipment[] = [
     branchCode: 'D23',
     needByTime: '11:30 AM Today',
     imageUrl: 'https://picsum.photos/300/200?random=14',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 52
   },
   {
     id: 'delivery-005',
@@ -185,7 +199,8 @@ export const deliveryEquipment: Equipment[] = [
     branchCode: 'P45',
     needByTime: '9:45 AM Tomorrow',
     imageUrl: 'https://picsum.photos/300/200?random=15',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 16
   },
   {
     id: 'delivery-006',
@@ -196,7 +211,8 @@ export const deliveryEquipment: Equipment[] = [
     branchCode: 'S67',
     needByTime: '4:15 PM Today',
     imageUrl: 'https://picsum.photos/300/200?random=16',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 35
   },
   {
     id: 'delivery-007',
@@ -207,7 +223,8 @@ export const deliveryEquipment: Equipment[] = [
     branchCode: 'A01',
     needByTime: '1:00 PM Today',
     imageUrl: 'https://picsum.photos/300/200?random=17',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 63
   },
   {
     id: 'delivery-008',
@@ -218,7 +235,8 @@ export const deliveryEquipment: Equipment[] = [
     branchCode: 'D23',
     needByTime: '6:30 AM Tomorrow',
     imageUrl: 'https://picsum.photos/300/200?random=18',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 29
   },
   {
     id: 'delivery-009',
@@ -229,7 +247,8 @@ export const deliveryEquipment: Equipment[] = [
     branchCode: 'P45',
     needByTime: '12:15 PM Today',
     imageUrl: 'https://picsum.photos/300/200?random=19',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 84
   },
   {
     id: 'delivery-010',
@@ -240,7 +259,8 @@ export const deliveryEquipment: Equipment[] = [
     branchCode: 'S67',
     needByTime: '3:30 PM Tomorrow',
     imageUrl: 'https://picsum.photos/300/200?random=20',
-    hasConditionReport: false
+    hasConditionReport: false,
+    meter: 95
   }
 ];
 

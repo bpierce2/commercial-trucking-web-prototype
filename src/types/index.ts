@@ -9,6 +9,7 @@ export interface Equipment {
   needByTime: string;
   imageUrl: string;
   hasConditionReport: boolean;
+  meter: number;
 }
 
 // Photo Upload Types

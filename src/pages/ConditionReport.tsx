@@ -30,11 +30,18 @@ export function ConditionReport() {
   
   const equipment = equipmentNumber ? getEquipmentByNumber(equipmentNumber) : null;
   
-  // Initialize photos based on equipment category
+  // Initialize photos based on equipment category and set default hour meter reading
   React.useEffect(() => {
     if (!equipmentNumber || !equipment) {
       navigate(-1);
       return;
+    }
+    
+    // Set default hour meter reading based on equipment type
+    if (equipment.type === 'delivery') {
+      setHourMeterReading(equipment.meter.toString());
+    } else {
+      setHourMeterReading('');
     }
     const getPhotoLayoutAndLabels = (category: number) => {
       if (category < 1000) {
