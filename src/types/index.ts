@@ -4,6 +4,7 @@ export interface Equipment {
   equipmentNumber: string;
   description: string;
   category: number; // Used for photo requirements: <1000, 1000-1999, >=2000
+  class: string; // Equipment class identifier
   type: 'pickup' | 'delivery';
   branchCode: string;
   needByTime: string;

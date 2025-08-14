@@ -92,7 +92,7 @@ export function EquipmentCard({
             {equipment.needByTime}
           </p>
           <h3 className="text-base font-semibold text-gray-900 mb-1 truncate">
-            {equipment.equipmentNumber}
+            {equipment.equipmentNumber} <span className="text-xs text-gray-400 font-normal">• {equipment.category} - {equipment.class}</span>
           </h3>
           <p className="text-sm text-gray-500 line-clamp-2">
             {equipment.description}

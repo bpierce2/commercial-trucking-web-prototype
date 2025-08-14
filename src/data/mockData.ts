@@ -20,123 +20,133 @@ export const users: User[] = [
 export const pickupEquipment: Equipment[] = [
   {
     id: 'pickup-001',
-    equipmentNumber: 'TRK-2001',
-    description: 'Peterbilt 579 Semi-Truck',
-    category: 2100, // Large truck - 20 photos
+    equipmentNumber: 'AB404501',
+    description: 'SCISSOR LIFT 39-40\' ELECTRIC 45-48"WIDE',
+    category: 300, // Small equipment - 2 photos
+    class: '4047',
     type: 'pickup',
     branchCode: 'A01',
     needByTime: '2:30 PM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=1',
+    imageUrl: 'https://images.ur.com/catclass/300-4047.jpg',
     hasConditionReport: false,
-    meter: 87
+    meter: 263
   },
   {
     id: 'pickup-002', 
-    equipmentNumber: 'GEN-045',
-    description: 'Honda EU2200i Generator',
-    category: 250, // Small equipment - 2 photos
+    equipmentNumber: '11772820',
+    description: 'GENERATOR 2.0-2.4 KW',
+    category: 240, // Small equipment - 2 photos
+    class: '2981',
     type: 'pickup',
     branchCode: 'D23',
     needByTime: '11:00 AM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=2',
+    imageUrl: 'https://images.ur.com/catclass/240-2981.jpg',
     hasConditionReport: false,
-    meter: 23
+    meter: 0
   },
   {
     id: 'pickup-003',
-    equipmentNumber: 'TRL-1450',
-    description: '53ft Dry Van Trailer',
-    category: 1450, // Medium equipment - 5 photos
+    equipmentNumber: '11437191',
+    description: 'ROLLER 1.5 TON DOUBLE DRUM SMOOTH GAS',
+    category: 160, // Small equipment - 2 photos
+    class: '2621',
     type: 'pickup',
     branchCode: 'P45',
     needByTime: '9:15 AM Tomorrow',
-    imageUrl: 'https://picsum.photos/300/200?random=3',
+    imageUrl: 'https://images.ur.com/catclass/160-2621.jpg',
     hasConditionReport: false,
-    meter: 56
+    meter: 258
   },
   {
     id: 'pickup-004',
-    equipmentNumber: 'CMP-890',
-    description: 'Atlas Copco Air Compressor',
-    category: 890, // Small equipment - 2 photos
+    equipmentNumber: '11948360',
+    description: 'BOOM 30-33\' ARTICULATING DC',
+    category: 310, // Small equipment - 2 photos
+    class: '3050',
     type: 'pickup',
     branchCode: 'S67',
     needByTime: '4:00 PM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=4',
+    imageUrl: 'https://images.ur.com/catclass/310-3050.jpg',
     hasConditionReport: false,
-    meter: 14
+    meter: 34
   },
   {
     id: 'pickup-005',
-    equipmentNumber: 'TRK-2250',
-    description: 'Kenworth T680 Semi-Truck',
-    category: 2250, // Large truck - 20 photos
+    equipmentNumber: '11101869',
+    description: 'SCISSOR LIFT 39-40\' ELECTRIC 45-48"WIDE',
+    category: 300, // Small equipment - 2 photos
+    class: '4047',
     type: 'pickup',
     branchCode: 'A01',
     needByTime: '6:45 AM Tomorrow',
-    imageUrl: 'https://picsum.photos/300/200?random=5',
+    imageUrl: 'https://images.ur.com/catclass/300-4047.jpg',
     hasConditionReport: false,
-    meter: 92
+    meter: 295024
   },
   {
     id: 'pickup-006',
-    equipmentNumber: 'TRL-1200',
-    description: 'Flatbed Trailer 48ft',
-    category: 1200, // Medium equipment - 5 photos
+    equipmentNumber: '11181493',
+    description: 'LIGHT TOWER ELECTRIC PUSHAROUND',
+    category: 320, // Small equipment - 2 photos
+    class: '4060',
     type: 'pickup',
     branchCode: 'D23',
     needByTime: '1:30 PM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=6',
+    imageUrl: 'https://images.ur.com/catclass/320-4060.jpg',
     hasConditionReport: false,
-    meter: 45
+    meter: 0
   },
   {
     id: 'pickup-007',
-    equipmentNumber: 'FLT-340',
-    description: 'JLG Scissor Lift',
-    category: 340, // Small equipment - 2 photos
+    equipmentNumber: '12040063',
+    description: 'BOOM VERTICAL MAST 26-27\' SELF PROPELLED',
+    category: 310, // Small equipment - 2 photos
+    class: '1526',
     type: 'pickup',
     branchCode: 'P45',
     needByTime: '10:00 AM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=7',
+    imageUrl: 'https://images.ur.com/catclass/310-1526.jpg',
     hasConditionReport: false,
-    meter: 78
+    meter: 3
   },
   {
     id: 'pickup-008',
-    equipmentNumber: 'TRK-2180',
-    description: 'Freightliner Cascadia',
-    category: 2180, // Large truck - 20 photos
+    equipmentNumber: '11518051',
+    description: 'PLANER CONCRETE 8" 9HP GAS',
+    category: 220, // Small equipment - 2 photos
+    class: '5425',
     type: 'pickup',
     branchCode: 'S67',
     needByTime: '8:30 AM Tomorrow',
-    imageUrl: 'https://picsum.photos/300/200?random=8',
+    imageUrl: 'https://images.ur.com/catclass/220-5425.jpg',
     hasConditionReport: false,
-    meter: 31
+    meter: 0
   },
   {
     id: 'pickup-009',
-    equipmentNumber: 'TRL-1650',
-    description: 'Refrigerated Trailer',
-    category: 1650, // Medium equipment - 5 photos
+    equipmentNumber: '11595113',
+    description: 'FINISHER CONCRETE 36"',
+    category: 180, // Small equipment - 2 photos
+    class: '9536',
     type: 'pickup',
     branchCode: 'A01',
     needByTime: '3:15 PM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=9',
+    imageUrl: 'https://images.ur.com/catclass/180-9536.jpg',
     hasConditionReport: false,
-    meter: 67
+    meter: 0
   },
   {
     id: 'pickup-010',
-    equipmentNumber: 'WLD-520',
-    description: 'Lincoln Welding Machine',
-    category: 520, // Small equipment - 2 photos
+    equipmentNumber: '1100001',
+    description: 'HOSE WHIP WITH OILER',
+    category: 110, // Small equipment - 2 photos
+    class: '1',
     type: 'pickup',
     branchCode: 'D23',
     needByTime: '12:45 PM Tomorrow',
-    imageUrl: 'https://picsum.photos/300/200?random=10',
+    imageUrl: 'https://images.ur.com/catclass/110-0001.jpg',
     hasConditionReport: false,
-    meter: 9
+    meter: 0
   }
 ];
 
@@ -144,123 +154,133 @@ export const pickupEquipment: Equipment[] = [
 export const deliveryEquipment: Equipment[] = [
   {
     id: 'delivery-001',
-    equipmentNumber: 'TRK-2340',
-    description: 'Volvo VNL 860 Semi-Truck',
-    category: 2340, // Large truck - 20 photos
+    equipmentNumber: '1102400',
+    description: 'AIR HOSE 3/4" X 50\'',
+    category: 110, // Small equipment - 2 photos
+    class: '2400',
     type: 'delivery',
     branchCode: 'P45',
     needByTime: '7:00 AM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=11',
+    imageUrl: 'https://images.ur.com/catclass/110-2400.jpg',
     hasConditionReport: false,
-    meter: 74
+    meter: 0
   },
   {
     id: 'delivery-002',
-    equipmentNumber: 'PWR-180',
-    description: 'Caterpillar Power Unit',
-    category: 180, // Small equipment - 2 photos
+    equipmentNumber: '1103625',
+    description: 'WHIP CHECK',
+    category: 110, // Small equipment - 2 photos
+    class: '3625',
     type: 'delivery',
     branchCode: 'S67',
     needByTime: '5:30 PM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=12',
+    imageUrl: 'https://images.ur.com/catclass/110-3625.jpg',
     hasConditionReport: false,
-    meter: 41
+    meter: 0
   },
   {
     id: 'delivery-003',
-    equipmentNumber: 'TRL-1380',
-    description: 'Lowboy Heavy Haul Trailer',
-    category: 1380, // Medium equipment - 5 photos
+    equipmentNumber: '1104630',
+    description: 'MOIL POINT 12" RIVET BUSTER',
+    category: 110, // Small equipment - 2 photos
+    class: '4630',
     type: 'delivery',
     branchCode: 'A01',
     needByTime: '2:00 PM Tomorrow',
-    imageUrl: 'https://picsum.photos/300/200?random=13',
+    imageUrl: 'https://images.ur.com/catclass/110-4630.jpg',
     hasConditionReport: false,
-    meter: 88
+    meter: 0
   },
   {
     id: 'delivery-004',
-    equipmentNumber: 'EXC-750',
-    description: 'Cat 320 Excavator',
-    category: 750, // Small equipment - 2 photos
+    equipmentNumber: '2305151',
+    description: 'FORK EXTENSIONS 6\'',
+    category: 230, // Small equipment - 2 photos
+    class: '5151',
     type: 'delivery',
     branchCode: 'D23',
     needByTime: '11:30 AM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=14',
+    imageUrl: 'https://images.ur.com/catclass/230-5151.jpg',
     hasConditionReport: false,
-    meter: 52
+    meter: 0
   },
   {
     id: 'delivery-005',
-    equipmentNumber: 'TRK-2450',
-    description: 'Mack Anthem Semi-Truck',
-    category: 2450, // Large truck - 20 photos
+    equipmentNumber: '2500120',
+    description: 'PROPANE TANK 33# VAPOR',
+    category: 250, // Small equipment - 2 photos
+    class: '120',
     type: 'delivery',
     branchCode: 'P45',
     needByTime: '9:45 AM Tomorrow',
-    imageUrl: 'https://picsum.photos/300/200?random=15',
+    imageUrl: 'https://images.ur.com/catclass/250-0120.jpg',
     hasConditionReport: false,
-    meter: 16
+    meter: 0
   },
   {
     id: 'delivery-006',
-    equipmentNumber: 'TRL-1100',
-    description: 'Step Deck Trailer',
-    category: 1100, // Medium equipment - 5 photos
+    equipmentNumber: '3503250',
+    description: 'PRESSURE WASHER HOSE 50\' EXTENSION',
+    category: 350, // Small equipment - 2 photos
+    class: '3250',
     type: 'delivery',
     branchCode: 'S67',
     needByTime: '4:15 PM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=16',
+    imageUrl: 'https://images.ur.com/catclass/350-3250.jpg',
     hasConditionReport: false,
-    meter: 35
+    meter: 0
   },
   {
     id: 'delivery-007',
-    equipmentNumber: 'GEN-380',
-    description: 'Generac Industrial Generator',
-    category: 380, // Small equipment - 2 photos
+    equipmentNumber: '5346680',
+    description: 'HOSE 2X50 LAYFLAT DISCHARGE - NPT',
+    category: 534, // Small equipment - 2 photos
+    class: '6680',
     type: 'delivery',
     branchCode: 'A01',
     needByTime: '1:00 PM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=17',
+    imageUrl: 'https://images.ur.com/catclass/534-6680.jpg',
     hasConditionReport: false,
-    meter: 63
+    meter: 0
   },
   {
     id: 'delivery-008',
-    equipmentNumber: 'TRK-2290',
-    description: 'Western Star 4900SB',
-    category: 2290, // Large truck - 20 photos
+    equipmentNumber: '5352020',
+    description: 'HOSE 3X20 PVC SUCTION - CAMLOCK',
+    category: 535, // Small equipment - 2 photos
+    class: '2020',
     type: 'delivery',
     branchCode: 'D23',
     needByTime: '6:30 AM Tomorrow',
-    imageUrl: 'https://picsum.photos/300/200?random=18',
+    imageUrl: 'https://images.ur.com/catclass/535-2020.jpg',
     hasConditionReport: false,
-    meter: 29
+    meter: 0
   },
   {
     id: 'delivery-009',
-    equipmentNumber: 'TRL-1750',
-    description: 'Tanker Trailer',
-    category: 1750, // Medium equipment - 5 photos
+    equipmentNumber: 'AB101234',
+    description: 'BOOM 30-33\' ARTICULATING DC',
+    category: 310, // Small equipment - 2 photos
+    class: '3050',
     type: 'delivery',
     branchCode: 'P45',
     needByTime: '12:15 PM Today',
-    imageUrl: 'https://picsum.photos/300/200?random=19',
+    imageUrl: 'https://images.ur.com/catclass/310-3050.jpg',
     hasConditionReport: false,
-    meter: 84
+    meter: 125
   },
   {
     id: 'delivery-010',
-    equipmentNumber: 'SKD-460',
-    description: 'Bobcat Skid Steer',
-    category: 460, // Small equipment - 2 photos
+    equipmentNumber: 'GN502678',
+    description: 'GENERATOR 2.0-2.4 KW',
+    category: 240, // Small equipment - 2 photos
+    class: '2981',
     type: 'delivery',
     branchCode: 'S67',
     needByTime: '3:30 PM Tomorrow',
-    imageUrl: 'https://picsum.photos/300/200?random=20',
+    imageUrl: 'https://images.ur.com/catclass/240-2981.jpg',
     hasConditionReport: false,
-    meter: 95
+    meter: 45
   }
 ];
 
