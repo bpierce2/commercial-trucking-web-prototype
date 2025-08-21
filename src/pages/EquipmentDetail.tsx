@@ -118,9 +118,9 @@ export function EquipmentDetail() {
               <div className="flex justify-between">
                 <span className="text-gray-500">Photo Requirements:</span>
                 <span className="font-medium text-gray-900">
-                  {equipment.category < 1000 
+                  {equipment.category < 200 
                     ? '2 photos' 
-                    : equipment.category < 2000 
+                    : equipment.category < 500 
                     ? '5 photos' 
                     : '20 photos'
                   }

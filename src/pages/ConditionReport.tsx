@@ -48,7 +48,7 @@ export function ConditionReport() {
       setHourMeterReading('');
     }
     const getPhotoLayoutAndLabels = (category: number) => {
-      if (category < 1000) {
+      if (category < 200) {
         // Layout 1: 5 photos with only top-left and bottom-right required
         return [
           { id: 'photo-1', label: 'Front View', required: true },
@@ -57,7 +57,7 @@ export function ConditionReport() {
           { id: 'photo-4', label: 'Left Side', required: false },
           { id: 'photo-5', label: 'Right Side', required: true }
         ];
-      } else if (category < 2000) {
+      } else if (category < 500) {
         // Layout 2: 5 photos in grid (2-1-2 layout) - all required
         return [
           { id: 'photo-1', label: 'Front View', required: true },
@@ -268,7 +268,7 @@ export function ConditionReport() {
       return <div className="text-center py-4 text-gray-500">Loading photo inputs...</div>;
     }
     
-    if (equipment.category < 1000) {
+    if (equipment.category < 200) {
       // Layout 1: 5-photo grid (same as 1000-2000) with only top-left and bottom-right required
       // Ensure we have at least 5 photos
       if (photos.length < 5) {
@@ -323,7 +323,7 @@ export function ConditionReport() {
           </div>
         </div>
       );
-    } else if (equipment.category < 2000) {
+    } else if (equipment.category < 500) {
       // Layout 2: 5-photo grid (2-1-2)
       // Ensure we have at least 5 photos
       if (photos.length < 5) {
