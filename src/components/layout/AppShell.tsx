@@ -13,6 +13,7 @@ export function AppShell({ children, className = '' }: AppShellProps) {
       min-w-[375px] 
       mx-auto 
       bg-gray-50 
+      dark:bg-gray-900
       relative
       ${className}
     `}>

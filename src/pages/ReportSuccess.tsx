@@ -37,7 +37,7 @@ export function ReportSuccess() {
   };
   
   return (
-    <div className="min-h-screen max-w-[428px] min-w-[375px] mx-auto bg-gray-50">
+    <div className="min-h-screen max-w-[428px] min-w-[375px] mx-auto bg-gray-50 dark:bg-gray-900">
       <PageWrapper hasHeader={false} hasBottomNav={false}>
         <div className="flex items-center justify-center min-h-screen p-4">
           <ReportSuccessCard

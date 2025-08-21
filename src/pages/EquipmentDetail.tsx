@@ -45,16 +45,16 @@ export function EquipmentDetail() {
         <PageWrapper>
           <div className="flex flex-col items-center justify-center py-12 text-center px-4">
             <div className="mb-4">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
-                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto">
+                <svg className="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.664-.833-2.464 0L5.268 16.5c-.77.833.192 2.5 1.732 2.5z" />
                 </svg>
               </div>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
               Equipment Not Found
             </h3>
-            <p className="text-gray-500 mb-6">
+            <p className="text-gray-500 dark:text-gray-400 mb-6">
               The equipment with number "{equipmentNumber}" could not be found.
             </p>
             <Button onClick={() => navigate(-1)}>
@@ -93,11 +93,11 @@ export function EquipmentDetail() {
           <EquipmentDetailHeaderCard equipment={equipment} />
           
           {/* Equipment Status */}
-          <div className="mt-6 p-4 bg-white rounded-lg border border-gray-100">
+          <div className="mt-6 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-medium text-gray-900">Condition Report Status</h3>
-                <p className="text-sm text-gray-500 mt-1">
+                <h3 className="text-sm font-medium text-gray-900 dark:text-white">Condition Report Status</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                   {equipment.hasConditionReport 
                     ? 'Condition report completed' 
                     : 'Condition report required'
@@ -107,8 +107,8 @@ export function EquipmentDetail() {
               <div className={`
                 px-3 py-1 rounded-full text-xs font-semibold
                 ${equipment.hasConditionReport 
-                  ? 'bg-emerald-100 text-emerald-700' 
-                  : 'bg-amber-100 text-amber-700'
+                  ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400' 
+                  : 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'
                 }
               `}>
                 {equipment.hasConditionReport ? 'Complete' : 'Pending'}
@@ -117,20 +117,20 @@ export function EquipmentDetail() {
           </div>
           
           {/* Additional Equipment Info */}
-          <div className="mt-4 p-4 bg-white rounded-lg border border-gray-100">
-            <h3 className="text-sm font-medium text-gray-900 mb-3">Equipment Information</h3>
+          <div className="mt-4 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700">
+            <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">Equipment Information</h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-500">Category:</span>
-                <span className="font-medium text-gray-900">{equipment.category}</span>
+                <span className="text-gray-500 dark:text-gray-400">Category:</span>
+                <span className="font-medium text-gray-900 dark:text-white">{equipment.category}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Type:</span>
-                <span className="font-medium text-gray-900 capitalize">{equipment.type}</span>
+                <span className="text-gray-500 dark:text-gray-400">Type:</span>
+                <span className="font-medium text-gray-900 dark:text-white capitalize">{equipment.type}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Photo Requirements:</span>
-                <span className="font-medium text-gray-900">
+                <span className="text-gray-500 dark:text-gray-400">Photo Requirements:</span>
+                <span className="font-medium text-gray-900 dark:text-white">
                   {equipment.category < 200 
                     ? '2 photos' 
                     : equipment.category < 500 
@@ -144,8 +144,8 @@ export function EquipmentDetail() {
           
           {/* Photo Gallery Section - Only show if condition report exists */}
           {equipment.hasConditionReport && conditionReport && conditionReport.photos.length > 0 && (
-            <div className="mt-4 p-4 bg-white rounded-lg border border-gray-100">
-              <h3 className="text-sm font-medium text-gray-900 mb-3">Submitted Photos</h3>
+            <div className="mt-4 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700">
+              <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">Submitted Photos</h3>
               <div className="flex space-x-3 overflow-x-auto pb-2">
                 {conditionReport.photos.map((photo) => (
                   <div key={photo.id} className="flex-shrink-0">
@@ -156,7 +156,7 @@ export function EquipmentDetail() {
                       <img
                         src={photo.base64Data}
                         alt={photo.filename}
-                        className="w-full h-full object-cover rounded-lg border border-gray-200"
+                        className="w-full h-full object-cover rounded-lg border border-gray-200 dark:border-gray-600"
                       />
                       {/* Green checkmark badge in top-right corner */}
                       <div className="absolute -top-1 -right-1">
@@ -167,7 +167,7 @@ export function EquipmentDetail() {
                         </div>
                       </div>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1 text-center truncate w-20">
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center truncate w-20">
                       {photo.filename}
                     </p>
                   </div>
@@ -178,18 +178,18 @@ export function EquipmentDetail() {
 
           {/* Damage Report Section - Only show if condition report exists and has damage */}
           {equipment.hasConditionReport && conditionReport && conditionReport.damageReport && hasDamageItems(conditionReport.damageReport) && (
-            <div className="mt-4 p-4 bg-white rounded-lg border border-gray-100">
-              <h3 className="text-sm font-medium text-gray-900 mb-3">Submitted Damage</h3>
+            <div className="mt-4 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700">
+              <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">Submitted Damage</h3>
               
               {/* Checked damage types */}
               <div className="space-y-4">
                 {DAMAGE_TYPES.filter(type => conditionReport.damageReport![type.key] as boolean).map((type) => (
                   <div key={type.key} className="border-l-4 border-red-300 pl-4 py-2">
-                    <h4 className="text-sm font-medium text-gray-900 mb-2">{type.label}</h4>
+                    <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">{type.label}</h4>
                     
                     {/* Additional comment for this damage type */}
                     {conditionReport.damageReport![type.commentKey] && (
-                      <p className="text-sm text-gray-600 mb-2">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                         {conditionReport.damageReport![type.commentKey] as string}
                       </p>
                     )}
@@ -205,7 +205,7 @@ export function EquipmentDetail() {
                             <img
                               src={(conditionReport.damageReport![type.photoKey] as PhotoUpload).base64Data}
                               alt={(conditionReport.damageReport![type.photoKey] as PhotoUpload).filename}
-                              className="w-full h-full object-cover rounded-lg border border-gray-200"
+                              className="w-full h-full object-cover rounded-lg border border-gray-200 dark:border-gray-600"
                             />
                             {/* Orange warning badge for damage photos */}
                             <div className="absolute -top-1 -right-1">
@@ -225,8 +225,8 @@ export function EquipmentDetail() {
                 {/* General damage comment */}
                 {conditionReport.damageReport.comment && conditionReport.damageReport.comment.trim() !== '' && (
                   <div className="border-l-4 border-gray-300 pl-4 py-2">
-                    <h4 className="text-sm font-medium text-gray-900 mb-2">Additional Comments</h4>
-                    <p className="text-sm text-gray-600">
+                    <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Additional Comments</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       {conditionReport.damageReport.comment}
                     </p>
                   </div>

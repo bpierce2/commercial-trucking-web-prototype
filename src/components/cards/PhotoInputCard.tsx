@@ -25,13 +25,13 @@ export function PhotoInputCard({
   const getIconColor = () => {
     if (hasFile) return 'text-green-500';
     if (required) return 'text-red-500';
-    return 'text-gray-400';
+    return 'text-gray-400 dark:text-gray-500';
   };
   
   const getHoverColor = () => {
     if (hasFile) return 'hover:text-green-600';
     if (required) return 'hover:text-red-600';
-    return 'hover:text-gray-500';
+    return 'hover:text-gray-500 dark:hover:text-gray-400';
   };
   
   const handleClick = () => {
@@ -93,7 +93,7 @@ export function PhotoInputCard({
       </button>
       
       {/* Optional Label */}
-      <p className="text-xs text-gray-600 text-center">
+      <p className="text-xs text-gray-600 dark:text-gray-300 text-center">
         {label}
       </p>
     </div>

@@ -132,7 +132,7 @@ export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
         rightContent={
           <button
             onClick={handleCameraAction}
-            className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
             aria-label="Take photo"
           >
             <Camera className="w-5 h-5" />
@@ -143,8 +143,8 @@ export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
       <PageWrapper hasBottomNav={false}>
         <div className="p-4 pb-24">
           {/* Select Damage Section */}
-          <div className="mb-6 p-4 bg-white rounded-xl border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <div className="mb-6 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
               Select Damage
             </h3>
             
@@ -158,7 +158,7 @@ export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
                       onChange={() => handleCheckboxChange(key)}
                       className="w-5 h-5 text-blue-500 border-2 border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
                     />
-                    <span className="text-base text-gray-900">{label}</span>
+                    <span className="text-base text-gray-900 dark:text-white">{label}</span>
                   </label>
                   
                   {/* Show additional fields when checkbox is checked */}
@@ -171,7 +171,7 @@ export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
                           placeholder="Additional details (optional)"
                           value={(damage[commentKey] as string) || ''}
                           onChange={(e) => handleDamageCommentChange(commentKey, e.target.value)}
-                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                          className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                         />
                         
                         {/* Photo upload icon */}
@@ -186,7 +186,7 @@ export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
                           <label
                             htmlFor={`photo-${key}`}
                             className={`cursor-pointer transition-all duration-200 hover:scale-105 ${
-                              damage[photoKey] ? 'text-green-500 hover:text-green-600' : 'text-gray-400 hover:text-gray-500'
+                              damage[photoKey] ? 'text-green-500 hover:text-green-600' : 'text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400'
                             }`}
                           >
                             <Camera className="w-8 h-8" />
@@ -213,8 +213,8 @@ export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
           </div>
 
           {/* Add Comment Section */}
-          <div className="mb-6 p-4 bg-white rounded-xl border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <div className="mb-6 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
               Add Comment
             </h3>
             
@@ -223,14 +223,14 @@ export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
               onChange={handleCommentChange}
               placeholder="Enter additional comments about the damage..."
               rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-base"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-base"
             />
           </div>
         </div>
       </PageWrapper>
       
       {/* Fixed Bottom Buttons */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-[428px] mx-auto bg-white border-t border-gray-200 p-4 space-y-3">
+      <div className="fixed bottom-0 left-0 right-0 max-w-[428px] mx-auto bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4 space-y-3">
         <div className="flex space-x-3">
           <Button
             type="button"

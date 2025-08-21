@@ -38,7 +38,7 @@ export function OptionsDialog({ isOpen, onClose }: OptionsDialogProps) {
       <div className="space-y-4">
         {/* Theme Toggle */}
         <div className="space-y-3">
-          <label className="text-sm font-medium text-gray-700">
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
             Theme
           </label>
           
@@ -52,7 +52,7 @@ export function OptionsDialog({ isOpen, onClose }: OptionsDialogProps) {
                 onChange={() => handleThemeChange('light')}
                 className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
               />
-              <span className="text-sm text-gray-700">Light mode</span>
+              <span className="text-sm text-gray-700 dark:text-gray-300">Light mode</span>
             </label>
             
             <label className="flex items-center space-x-3 cursor-pointer">
@@ -64,7 +64,7 @@ export function OptionsDialog({ isOpen, onClose }: OptionsDialogProps) {
                 onChange={() => handleThemeChange('dark')}
                 className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
               />
-              <span className="text-sm text-gray-700">Dark mode</span>
+              <span className="text-sm text-gray-700 dark:text-gray-300">Dark mode</span>
             </label>
           </div>
         </div>

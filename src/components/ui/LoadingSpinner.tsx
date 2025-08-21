@@ -21,7 +21,7 @@ export function LoadingSpinner({
   const colorClasses = {
     primary: 'text-blue-500',
     white: 'text-white',
-    gray: 'text-gray-400'
+    gray: 'text-gray-400 dark:text-gray-500'
   };
   
   const spinnerClasses = `${sizeClasses[size]} ${colorClasses[color]} animate-spin ${className}`;
@@ -49,7 +49,7 @@ export function LoadingSpinner({
         />
       </svg>
       {text && (
-        <p className="mt-2 text-sm text-gray-600">{text}</p>
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{text}</p>
       )}
     </div>
   );

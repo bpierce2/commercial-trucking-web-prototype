@@ -50,7 +50,7 @@ export function LanguageDialog({ isOpen, onClose }: LanguageDialogProps) {
       <div className="space-y-4">
         {/* Language Selection */}
         <div className="space-y-3">
-          <label className="text-sm font-medium text-gray-700">
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
             App Language
           </label>
           
@@ -58,7 +58,7 @@ export function LanguageDialog({ isOpen, onClose }: LanguageDialogProps) {
             {languageOptions.map((option) => (
               <label 
                 key={option.code}
-                className="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               >
                 <input
                   type="radio"
@@ -69,10 +69,10 @@ export function LanguageDialog({ isOpen, onClose }: LanguageDialogProps) {
                   className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                 />
                 <div className="flex-1">
-                  <span className="text-sm font-medium text-gray-700">
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     {option.name}
                   </span>
-                  <span className="text-sm text-gray-500 ml-2">
+                  <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">
                     ({option.nativeName})
                   </span>
                 </div>

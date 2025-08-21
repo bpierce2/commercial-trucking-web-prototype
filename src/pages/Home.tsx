@@ -15,10 +15,10 @@ export function Home() {
       <PageWrapper>
         <div className="p-4 space-y-4">
           <div className="mb-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
               Welcome back
             </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-300">
               Select a task to get started with equipment condition reports.
             </p>
           </div>

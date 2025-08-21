@@ -28,12 +28,15 @@ export function HomeCard({
         block 
         p-4 
         bg-white 
+        dark:bg-gray-800
         rounded-xl 
         shadow-sm 
         border 
         border-gray-100 
+        dark:border-gray-700
         hover:shadow-md 
         hover:border-gray-200 
+        dark:hover:border-gray-600
         transition-all 
         duration-200
         relative
@@ -50,17 +53,17 @@ export function HomeCard({
       <div className="flex items-start space-x-3">
         {/* Icon */}
         <div className="flex-shrink-0">
-          <div className="p-2 bg-blue-50 rounded-lg">
+          <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
             <IconComponent className="w-6 h-6 text-blue-500" />
           </div>
         </div>
         
         {/* Content */}
         <div className="flex-1 min-w-0 pr-12">
-          <h3 className="text-lg font-semibold text-gray-900 mb-1">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
             {title}
           </h3>
-          <p className="text-sm text-gray-500 leading-relaxed">
+          <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
             {description}
           </p>
         </div>

@@ -60,20 +60,20 @@ export function AboutDialog({ isOpen, onClose }: AboutDialogProps) {
       <div className="space-y-4">
         {/* System Information */}
         <div className="space-y-3">
-          <label className="text-sm font-medium text-gray-700">
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
             System Information
           </label>
           
-          <div className="bg-gray-50 rounded-lg p-3 space-y-2">
+          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-3 space-y-2">
             {systemInfo.map((info) => (
               <div 
                 key={info.label}
                 className="flex justify-between items-start text-sm"
               >
-                <span className="text-gray-600 font-medium">
+                <span className="text-gray-600 dark:text-gray-400 font-medium">
                   {info.label}:
                 </span>
-                <span className="text-gray-900 text-right ml-4 break-all">
+                <span className="text-gray-900 dark:text-white text-right ml-4 break-all">
                   {info.value}
                 </span>
               </div>
@@ -82,11 +82,11 @@ export function AboutDialog({ isOpen, onClose }: AboutDialogProps) {
         </div>
         
         {/* Version Info */}
-        <div className="text-center py-2 border-t border-gray-200">
-          <p className="text-xs text-gray-500">
+        <div className="text-center py-2 border-t border-gray-200 dark:border-gray-700">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             Commercial Trucking Equipment Reports
           </p>
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
             Built with React + TypeScript
           </p>
         </div>

@@ -22,10 +22,12 @@ export function EquipmentDetailHeaderCard({
   return (
     <div className={`
       bg-white 
+      dark:bg-gray-800
       rounded-xl 
       shadow-sm 
       border 
       border-gray-100 
+      dark:border-gray-700
       relative
       ${className}
     `}>
@@ -61,7 +63,7 @@ export function EquipmentDetailHeaderCard({
           <img
             src={equipment.imageUrl}
             alt={equipment.description}
-            className="w-20 h-20 object-cover rounded-lg bg-gray-100"
+            className="w-20 h-20 object-cover rounded-lg bg-gray-100 dark:bg-gray-700"
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0zNCAzNEg0NlY0NkgzNFYzNFoiIGZpbGw9IiM5Q0EzQUYiLz4KPC9zdmc+';
@@ -71,18 +73,18 @@ export function EquipmentDetailHeaderCard({
         
         {/* Equipment Information */}
         <div className="flex-1 min-w-0 pt-2">
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             {equipment.equipmentNumber}
           </h2>
-          <p className="text-sm text-gray-500 mb-2">
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
             {equipment.description}
           </p>
           <div className="space-y-1">
-            <p className="text-sm font-semibold text-gray-700">
+            <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
               Branch {equipment.branchCode}
               {branch && <span className="font-normal"> - {branch.name}</span>}
             </p>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-400 dark:text-gray-500">
               Need by: {equipment.needByTime}
             </p>
           </div>

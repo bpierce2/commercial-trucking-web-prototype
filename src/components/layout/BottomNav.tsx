@@ -35,8 +35,10 @@ export function BottomNav({ className = '' }: BottomNavProps) {
       max-w-[428px] 
       mx-auto 
       bg-white 
+      dark:bg-gray-800
       border-t 
       border-gray-200 
+      dark:border-gray-700
       z-40
       ${className}
     `}>
@@ -60,8 +62,8 @@ export function BottomNav({ className = '' }: BottomNavProps) {
                 rounded-lg 
                 transition-colors 
                 ${active 
-                  ? 'text-blue-500 bg-blue-50' 
-                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                  ? 'text-blue-500 bg-blue-50 dark:bg-blue-900/30' 
+                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700'
                 }
               `}
             >

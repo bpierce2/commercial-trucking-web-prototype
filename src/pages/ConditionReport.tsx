@@ -265,14 +265,14 @@ export function ConditionReport() {
   const renderPhotoInputs = () => {
     // Don't render anything if photos aren't loaded yet
     if (photos.length === 0) {
-      return <div className="text-center py-4 text-gray-500">Loading photo inputs...</div>;
+      return <div className="text-center py-4 text-gray-500 dark:text-gray-400">Loading photo inputs...</div>;
     }
     
     if (equipment.category < 200) {
       // Layout 1: 5-photo grid (same as 1000-2000) with only top-left and bottom-right required
       // Ensure we have at least 5 photos
       if (photos.length < 5) {
-        return <div className="text-center py-4 text-gray-500">Loading photo inputs...</div>;
+        return <div className="text-center py-4 text-gray-500 dark:text-gray-400">Loading photo inputs...</div>;
       }
       
       return (
@@ -327,7 +327,7 @@ export function ConditionReport() {
       // Layout 2: 5-photo grid (2-1-2)
       // Ensure we have at least 5 photos
       if (photos.length < 5) {
-        return <div className="text-center py-4 text-gray-500">Loading photo inputs...</div>;
+        return <div className="text-center py-4 text-gray-500 dark:text-gray-400">Loading photo inputs...</div>;
       }
       
       return (
@@ -382,7 +382,7 @@ export function ConditionReport() {
       // Layout 3: 20 photos in list format with index on left, icon on right
       // Ensure we have the expected number of photos
       if (photos.length < 20) {
-        return <div className="text-center py-4 text-gray-500">Loading photo inputs...</div>;
+        return <div className="text-center py-4 text-gray-500 dark:text-gray-400">Loading photo inputs...</div>;
       }
       
       return (
@@ -391,7 +391,7 @@ export function ConditionReport() {
             <div key={photo.id} className="flex items-center justify-between py-2 px-1">
               {/* Left side: Index and label */}
               <div className="flex-1">
-                <span className="text-sm font-medium text-gray-900">
+                <span className="text-sm font-medium text-gray-900 dark:text-white">
                   {index + 1}. {photo.label}
                 </span>
               </div>
@@ -411,8 +411,8 @@ export function ConditionReport() {
                   onClick={handleShowAddDamage}
                   className={`p-2 rounded-lg transition-colors ${
                     hasDamageReported() 
-                      ? 'text-orange-600 hover:text-orange-700 hover:bg-orange-50 bg-orange-100' 
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                      ? 'text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/30 bg-orange-100 dark:bg-orange-900/30' 
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
                   aria-label={hasDamageReported() ? "Damage reported" : "Add damage"}
                 >
@@ -455,7 +455,7 @@ export function ConditionReport() {
           <EquipmentDetailHeaderCard equipment={equipment} className="mb-6" />
           
           {/* Hour Meter Input */}
-          <div className="mb-6 p-4 bg-white rounded-xl border border-gray-100">
+          <div className="mb-6 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
             <Input
               type="number"
               label="Hour Meter Reading"
@@ -470,15 +470,15 @@ export function ConditionReport() {
           </div>
           
           {/* Photo Section */}
-          <div className="mb-6 p-4 bg-white rounded-xl border border-gray-100">
+          <div className="mb-6 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                 Equipment Photos
               </h3>
-              <p className="text-sm text-gray-500 mb-2">
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                 {totalRequired} required, {optionalPhotos} optional • {uploadedCount} uploaded
               </p>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div 
                   className="bg-blue-500 h-2 rounded-full transition-all duration-300"
                   style={{ width: `${progressPercentage}%` }}
@@ -490,7 +490,7 @@ export function ConditionReport() {
             
             {/* Existing Damage Button for categories < 2000 */}
             {equipment.category < 2000 && (
-              <div className="mt-4 pt-4 border-t border-gray-200">
+              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <Button
                   type="button"
                   variant={hasDamageReported() ? "primary" : "secondary"}
@@ -510,15 +510,15 @@ export function ConditionReport() {
           </div>
           
           {errors.submit && (
-            <div className="mb-6 p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-sm text-red-600">{errors.submit}</p>
+            <div className="mb-6 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              <p className="text-sm text-red-600 dark:text-red-400">{errors.submit}</p>
             </div>
           )}
         </form>
       </PageWrapper>
       
       {/* Fixed Bottom Buttons */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-[428px] mx-auto bg-white border-t border-gray-200 p-4 space-y-3">
+      <div className="fixed bottom-0 left-0 right-0 max-w-[428px] mx-auto bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4 space-y-3">
         <div className="flex space-x-3">
           <Button
             type="button"

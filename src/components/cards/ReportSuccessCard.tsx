@@ -33,6 +33,7 @@ export function ReportSuccessCard({
   return (
     <div className={`
       bg-white 
+      dark:bg-gray-800
       rounded-xl 
       shadow-lg 
       p-6 
@@ -43,23 +44,23 @@ export function ReportSuccessCard({
     `}>
       {/* Success Icon */}
       <div className="flex justify-center mb-4">
-        <div className="p-3 bg-emerald-100 rounded-full">
+        <div className="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-full">
           <CheckCircle className="w-12 h-12 text-emerald-500" />
         </div>
       </div>
       
       {/* Title */}
-      <h2 className="text-xl font-semibold text-gray-900 mb-2">
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
         Report Submitted Successfully
       </h2>
       
       {/* Description */}
-      <p className="text-gray-600 mb-3">
+      <p className="text-gray-600 dark:text-gray-300 mb-3">
         Condition report for <span className="font-semibold">{equipmentNumber}</span> has been submitted successfully
       </p>
       
       {/* Timestamp */}
-      <p className="text-sm text-gray-500 mb-6">
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
         Submitted at {formatDateTime(submittedAt)}
       </p>
       

@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { DataProvider } from './data/dataStore';
 import { AppShell } from './components/layout/AppShell';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { useData } from './hooks/useData';
 
 // Pages
 import { Login } from './pages/Login';
@@ -13,11 +15,27 @@ import { Settings } from './pages/Settings';
 import { ConditionReport } from './pages/ConditionReport';
 import { ReportSuccess } from './pages/ReportSuccess';
 
-function App() {
+function AppContent() {
+  const { state } = useData();
+  
+  // Apply theme class to document body to ensure portaled elements (like modals) inherit dark mode
+  useEffect(() => {
+    const body = document.body;
+    if (state.settings.theme === 'dark') {
+      body.classList.add('dark');
+    } else {
+      body.classList.remove('dark');
+    }
+    
+    // Cleanup function to remove the class when component unmounts
+    return () => {
+      body.classList.remove('dark');
+    };
+  }, [state.settings.theme]);
+  
   return (
-    <DataProvider>
-      <Router>
-        <AppShell>
+    <div className={state.settings.theme}>
+      <AppShell>
           <Routes>
             {/* Public Routes */}
             <Route path="/login" element={<Login />} />
@@ -73,6 +91,15 @@ function App() {
             <Route path="*" element={<Navigate to="/app/home" replace />} />
           </Routes>
         </AppShell>
+      </div>
+  );
+}
+
+function App() {
+  return (
+    <DataProvider>
+      <Router>
+        <AppContent />
       </Router>
     </DataProvider>
   );

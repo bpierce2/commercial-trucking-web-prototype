@@ -36,8 +36,10 @@ export function Header({
       max-w-[428px] 
       mx-auto 
       bg-white 
+      dark:bg-gray-800
       border-b 
       border-gray-200 
+      dark:border-gray-700
       z-40
       ${className}
     `}>
@@ -46,13 +48,13 @@ export function Header({
           {showBackButton && (
             <button
               onClick={handleBack}
-              className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 -ml-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
               aria-label="Go back"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
           )}
-          <h1 className="text-lg font-semibold text-gray-900 truncate">
+          <h1 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
             {title}
           </h1>
         </div>

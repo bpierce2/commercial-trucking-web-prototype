@@ -56,8 +56,11 @@ export function Search() {
                 -translate-y-1/2 
                 p-2 
                 text-gray-400 
+                dark:text-gray-500
                 hover:text-gray-600 
+                dark:hover:text-gray-300
                 hover:bg-gray-100 
+                dark:hover:bg-gray-700
                 rounded-lg 
                 transition-colors
               "
@@ -71,14 +74,14 @@ export function Search() {
           {showEmptyState && (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <div className="mb-4">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
-                  <SearchIcon className="w-8 h-8 text-gray-400" />
+                <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto">
+                  <SearchIcon className="w-8 h-8 text-gray-400 dark:text-gray-500" />
                 </div>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                 Search Equipment
               </h3>
-              <p className="text-gray-500 max-w-sm">
+              <p className="text-gray-500 dark:text-gray-400 max-w-sm">
                 Enter equipment number or scan to search for equipment that needs condition reports.
               </p>
             </div>
@@ -88,16 +91,16 @@ export function Search() {
           {showNoResults && (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <div className="mb-4">
-                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
-                  <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto">
+                  <svg className="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0120 12a8 8 0 10-2.343 5.657l2.343 2.343" />
                   </svg>
                 </div>
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
                 No Results Found
               </h3>
-              <p className="text-gray-500 max-w-sm">
+              <p className="text-gray-500 dark:text-gray-400 max-w-sm">
                 No equipment found matching "{searchQuery}". Try a different equipment number or scan a barcode.
               </p>
             </div>
@@ -106,7 +109,7 @@ export function Search() {
           {/* Search Results */}
           {searchResults.length > 0 && (
             <div className="space-y-4">
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
                 {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} found
               </p>
               

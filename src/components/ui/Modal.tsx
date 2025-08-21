@@ -42,7 +42,7 @@ export function Modal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/50" />
+          <div className="fixed inset-0 bg-black/50 dark:bg-black/70" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -56,21 +56,21 @@ export function Modal({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className={`w-full ${sizeClasses[size]} transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all ${className}`}>
+              <Dialog.Panel className={`w-full ${sizeClasses[size]} transform overflow-hidden rounded-2xl bg-white dark:bg-gray-800 text-left align-middle shadow-xl transition-all ${className}`}>
                 {/* Header */}
                 {(title || showCloseButton) && (
-                  <div className="flex items-center justify-between p-4 border-b border-gray-100">
+                  <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-gray-700">
                     <div>
                       {title && (
                         <Dialog.Title
                           as="h3"
-                          className="text-lg font-semibold leading-6 text-gray-900"
+                          className="text-lg font-semibold leading-6 text-gray-900 dark:text-white"
                         >
                           {title}
                         </Dialog.Title>
                       )}
                       {description && (
-                        <p className="mt-1 text-sm text-gray-500">
+                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                           {description}
                         </p>
                       )}
@@ -78,7 +78,7 @@ export function Modal({
                     {showCloseButton && (
                       <button
                         type="button"
-                        className="rounded-lg p-1.5 text-gray-400 hover:text-gray-500 hover:bg-gray-100 transition-colors"
+                        className="rounded-lg p-1.5 text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                         onClick={onClose}
                       >
                         <span className="sr-only">Close</span>

@@ -72,7 +72,7 @@ export function Settings() {
       <Header title="Settings" />
       
       <PageWrapper>
-        <div className="bg-white">
+        <div className="bg-white dark:bg-gray-800">
           {settingsOptions.map((option, index) => (
             <div key={option.title}>
               <ListOption
@@ -83,7 +83,7 @@ export function Settings() {
                 showChevron={option.title !== 'Logout'}
               />
               {index < settingsOptions.length - 1 && (
-                <div className="border-b border-gray-100 ml-16" />
+                <div className="border-b border-gray-100 dark:border-gray-700 ml-16" />
               )}
             </div>
           ))}
