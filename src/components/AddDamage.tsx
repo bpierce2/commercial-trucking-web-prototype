@@ -3,7 +3,7 @@ import { Camera } from 'lucide-react';
 import { Header } from './layout/Header';
 import { PageWrapper } from './layout/PageWrapper';
 import { Button } from './ui/Button';
-import type { DamageReport } from '../types';
+import type { DamageReport, PhotoUpload } from '../types';
 
 interface AddDamageProps {
   initialDamage?: DamageReport;
@@ -12,10 +12,30 @@ interface AddDamageProps {
 }
 
 const DAMAGE_TYPES = [
-  { key: 'structuralBodyDamage' as keyof DamageReport, label: 'Structural/Body Damage' },
-  { key: 'componentAttachmentDamage' as keyof DamageReport, label: 'Component/Attachment Damage' },
-  { key: 'tireTrackDamage' as keyof DamageReport, label: 'Tire or Track Damage' },
-  { key: 'overallConditionNotAcceptable' as keyof DamageReport, label: 'Overall condition not acceptable' },
+  { 
+    key: 'structuralBodyDamage' as keyof DamageReport, 
+    label: 'Structural/Body Damage',
+    commentKey: 'structuralBodyDamageComment' as keyof DamageReport,
+    photoKey: 'structuralBodyDamagePhoto' as keyof DamageReport
+  },
+  { 
+    key: 'componentAttachmentDamage' as keyof DamageReport, 
+    label: 'Component/Attachment Damage',
+    commentKey: 'componentAttachmentDamageComment' as keyof DamageReport,
+    photoKey: 'componentAttachmentDamagePhoto' as keyof DamageReport
+  },
+  { 
+    key: 'tireTrackDamage' as keyof DamageReport, 
+    label: 'Tire or Track Damage',
+    commentKey: 'tireTrackDamageComment' as keyof DamageReport,
+    photoKey: 'tireTrackDamagePhoto' as keyof DamageReport
+  },
+  { 
+    key: 'overallConditionNotAcceptable' as keyof DamageReport, 
+    label: 'Overall condition not acceptable',
+    commentKey: 'overallConditionNotAcceptableComment' as keyof DamageReport,
+    photoKey: 'overallConditionNotAcceptablePhoto' as keyof DamageReport
+  },
 ];
 
 export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
@@ -24,7 +44,11 @@ export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
     componentAttachmentDamage: false,
     tireTrackDamage: false,
     overallConditionNotAcceptable: false,
-    comment: ''
+    comment: '',
+    structuralBodyDamageComment: '',
+    componentAttachmentDamageComment: '',
+    tireTrackDamageComment: '',
+    overallConditionNotAcceptableComment: ''
   });
 
   const handleCheckboxChange = (key: keyof DamageReport) => {
@@ -41,6 +65,54 @@ export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
       ...prev,
       comment: e.target.value
     }));
+  };
+
+  const handleDamageCommentChange = (key: keyof DamageReport, value: string) => {
+    setDamage(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+
+  const handleFileUpload = (key: keyof DamageReport, event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const base64Data = e.target?.result as string;
+      const photoUpload: PhotoUpload = {
+        id: Date.now().toString(),
+        filename: file.name,
+        base64Data,
+        uploaded: true
+      };
+      
+      setDamage(prev => ({
+        ...prev,
+        [key]: photoUpload
+      }));
+    };
+    reader.readAsDataURL(file);
+    
+    // Reset the input value to allow re-uploading the same file
+    event.target.value = '';
+  };
+
+  const handleRemovePhoto = (key: keyof DamageReport) => {
+    setDamage(prev => ({
+      ...prev,
+      [key]: undefined
+    }));
+    
+    // Find the corresponding checkbox key to match the input ID
+    const damageType = DAMAGE_TYPES.find(type => type.photoKey === key);
+    if (damageType) {
+      const inputElement = document.getElementById(`photo-${damageType.key}`) as HTMLInputElement;
+      if (inputElement) {
+        inputElement.value = '';
+      }
+    }
   };
 
   const handleDone = () => {
@@ -76,17 +148,66 @@ export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
               Select Damage
             </h3>
             
-            <div className="space-y-3">
-              {DAMAGE_TYPES.map(({ key, label }) => (
-                <label key={key} className="flex items-center space-x-3 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={damage[key] as boolean}
-                    onChange={() => handleCheckboxChange(key)}
-                    className="w-5 h-5 text-blue-500 border-2 border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
-                  />
-                  <span className="text-base text-gray-900">{label}</span>
-                </label>
+            <div className="space-y-4">
+              {DAMAGE_TYPES.map(({ key, label, commentKey, photoKey }) => (
+                <div key={key} className="space-y-3">
+                  <label className="flex items-center space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={damage[key] as boolean}
+                      onChange={() => handleCheckboxChange(key)}
+                      className="w-5 h-5 text-blue-500 border-2 border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                    />
+                    <span className="text-base text-gray-900">{label}</span>
+                  </label>
+                  
+                  {/* Show additional fields when checkbox is checked */}
+                  {damage[key] && (
+                    <div className="ml-8">
+                      {/* Additional comment input with photo icon */}
+                      <div className="flex items-center space-x-3">
+                        <input
+                          type="text"
+                          placeholder="Additional details (optional)"
+                          value={(damage[commentKey] as string) || ''}
+                          onChange={(e) => handleDamageCommentChange(commentKey, e.target.value)}
+                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                        />
+                        
+                        {/* Photo upload icon */}
+                        <div className="relative">
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => handleFileUpload(photoKey, e)}
+                            className="hidden"
+                            id={`photo-${key}`}
+                          />
+                          <label
+                            htmlFor={`photo-${key}`}
+                            className={`cursor-pointer transition-all duration-200 hover:scale-105 ${
+                              damage[photoKey] ? 'text-green-500 hover:text-green-600' : 'text-gray-400 hover:text-gray-500'
+                            }`}
+                          >
+                            <Camera className="w-8 h-8" />
+                          </label>
+                          
+                          {/* Show remove option when photo is uploaded */}
+                          {damage[photoKey] && (
+                            <button
+                              type="button"
+                              onClick={() => handleRemovePhoto(photoKey)}
+                              className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full text-xs hover:bg-red-600 flex items-center justify-center"
+                              style={{ fontSize: '10px' }}
+                            >
+                              ×
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           </div>

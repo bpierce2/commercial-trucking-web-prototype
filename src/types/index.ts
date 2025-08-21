@@ -28,6 +28,16 @@ export interface DamageReport {
   tireTrackDamage: boolean;
   overallConditionNotAcceptable: boolean;
   comment: string;
+  // Optional additional details for each damage type
+  structuralBodyDamageComment?: string;
+  componentAttachmentDamageComment?: string;
+  tireTrackDamageComment?: string;
+  overallConditionNotAcceptableComment?: string;
+  // Optional photos for each damage type (max 1 per type)
+  structuralBodyDamagePhoto?: PhotoUpload;
+  componentAttachmentDamagePhoto?: PhotoUpload;
+  tireTrackDamagePhoto?: PhotoUpload;
+  overallConditionNotAcceptablePhoto?: PhotoUpload;
 }
 
 // Condition Report Types
