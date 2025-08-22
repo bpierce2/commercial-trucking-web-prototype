@@ -177,60 +177,76 @@ export function EquipmentDetail() {
           )}
 
           {/* Damage Report Section - Only show if condition report exists and has damage */}
-          {equipment.hasConditionReport && conditionReport && conditionReport.damageReport && hasDamageItems(conditionReport.damageReport) && (
+          {equipment.hasConditionReport && conditionReport && conditionReport.damageReports && conditionReport.damageReports.some(report => report && hasDamageItems(report)) && (
             <div className="mt-4 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700">
               <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-3">Submitted Damage</h3>
               
-              {/* Checked damage types */}
-              <div className="space-y-4">
-                {DAMAGE_TYPES.filter(type => conditionReport.damageReport![type.key] as boolean).map((type) => (
-                  <div key={type.key} className="border-l-4 border-red-300 pl-4 py-2">
-                    <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">{type.label}</h4>
-                    
-                    {/* Additional comment for this damage type */}
-                    {conditionReport.damageReport![type.commentKey] && (
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                        {conditionReport.damageReport![type.commentKey] as string}
-                      </p>
-                    )}
-                    
-                    {/* Photo for this damage type */}
-                    {conditionReport.damageReport![type.photoKey] && (
-                      <div className="flex space-x-3">
-                        <div className="flex-shrink-0">
-                          <div 
-                            className="w-16 h-16 relative cursor-pointer hover:opacity-80 transition-opacity"
-                            onClick={() => handlePhotoClick(conditionReport.damageReport![type.photoKey] as PhotoUpload)}
-                          >
-                            <img
-                              src={(conditionReport.damageReport![type.photoKey] as PhotoUpload).base64Data}
-                              alt={(conditionReport.damageReport![type.photoKey] as PhotoUpload).filename}
-                              className="w-full h-full object-cover rounded-lg border border-gray-200 dark:border-gray-600"
-                            />
-                            {/* Orange warning badge for damage photos */}
-                            <div className="absolute -top-1 -right-1">
-                              <div className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center border-2 border-white shadow-sm">
-                                <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                  <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                                </svg>
+              {/* Display all damage reports */}
+              <div className="space-y-6">
+                {conditionReport.damageReports.map((damageReport, reportIndex) => {
+                  if (!damageReport || !hasDamageItems(damageReport)) return null;
+                  
+                  return (
+                    <div key={reportIndex} className="space-y-4">
+                      {/* Show photo index for 20-photo layout */}
+                      {conditionReport.damageReports!.length > 1 && (
+                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-600 pb-2">
+                          Photo {reportIndex + 1} Damage
+                        </h4>
+                      )}
+                      
+                      {/* Checked damage types for this report */}
+                      {DAMAGE_TYPES.filter(type => damageReport[type.key] as boolean).map((type) => (
+                        <div key={`${reportIndex}-${type.key}`} className="border-l-4 border-red-300 pl-4 py-2">
+                          <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">{type.label}</h5>
+                          
+                          {/* Additional comment for this damage type */}
+                          {damageReport[type.commentKey] && (
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                              {damageReport[type.commentKey] as string}
+                            </p>
+                          )}
+                          
+                          {/* Photo for this damage type */}
+                          {damageReport[type.photoKey] && (
+                            <div className="flex space-x-3">
+                              <div className="flex-shrink-0">
+                                <div 
+                                  className="w-16 h-16 relative cursor-pointer hover:opacity-80 transition-opacity"
+                                  onClick={() => handlePhotoClick(damageReport[type.photoKey] as PhotoUpload)}
+                                >
+                                  <img
+                                    src={(damageReport[type.photoKey] as PhotoUpload).base64Data}
+                                    alt={(damageReport[type.photoKey] as PhotoUpload).filename}
+                                    className="w-full h-full object-cover rounded-lg border border-gray-200 dark:border-gray-600"
+                                  />
+                                  {/* Orange warning badge for damage photos */}
+                                  <div className="absolute -top-1 -right-1">
+                                    <div className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center border-2 border-white shadow-sm">
+                                      <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                                      </svg>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          )}
                         </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-                
-                {/* General damage comment */}
-                {conditionReport.damageReport.comment && conditionReport.damageReport.comment.trim() !== '' && (
-                  <div className="border-l-4 border-gray-300 pl-4 py-2">
-                    <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Additional Comments</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {conditionReport.damageReport.comment}
-                    </p>
-                  </div>
-                )}
+                      ))}
+                      
+                      {/* General damage comment for this report */}
+                      {damageReport.comment && damageReport.comment.trim() !== '' && (
+                        <div className="border-l-4 border-gray-300 pl-4 py-2">
+                          <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Additional Comments</h5>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">
+                            {damageReport.comment}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}

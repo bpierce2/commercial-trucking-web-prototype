@@ -30,7 +30,8 @@ export function ConditionReport() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showAddDamage, setShowAddDamage] = useState(false);
-  const [damageReport, setDamageReport] = useState<DamageReport | null>(null);
+  const [damageReports, setDamageReports] = useState<(DamageReport | null)[]>([]);
+  const [currentDamageIndex, setCurrentDamageIndex] = useState<number>(0);
   
   const equipment = equipmentNumber ? getEquipmentByNumber(equipmentNumber) : null;
   
@@ -109,6 +110,21 @@ export function ConditionReport() {
     }));
     
     setPhotos(initialPhotos);
+    
+    // Initialize damage reports array based on equipment category
+    let damageReportsCount: number;
+    if (equipment.category < 300) {
+      // 2-photo layout: single damage report
+      damageReportsCount = 1;
+    } else if (equipment.category < 700) {
+      // 5-photo layout: single damage report
+      damageReportsCount = 1;
+    } else {
+      // 20-photo layout: one damage report per photo
+      damageReportsCount = 20;
+    }
+    
+    setDamageReports(new Array(damageReportsCount).fill(null));
   }, [equipment, equipmentNumber, navigate]);
   
   const convertFileToBase64 = (file: File): Promise<string> => {
@@ -216,7 +232,7 @@ export function ConditionReport() {
         equipmentNumber: equipment!.equipmentNumber,
         hourMeterReading: parseFloat(hourMeterReading),
         photos: photoUploads,
-        damageReport: damageReport || undefined,
+        damageReports: damageReports.length > 0 ? damageReports : undefined,
         submittedAt: new Date()
       };
       
@@ -236,7 +252,8 @@ export function ConditionReport() {
     navigate(-1);
   };
 
-  const handleShowAddDamage = () => {
+  const handleShowAddDamage = (photoIndex?: number) => {
+    setCurrentDamageIndex(photoIndex ?? 0);
     setShowAddDamage(true);
   };
 
@@ -245,17 +262,34 @@ export function ConditionReport() {
   };
 
   const handleAddDamageDone = (damage: DamageReport) => {
-    setDamageReport(damage);
+    setDamageReports(prev => {
+      const newReports = [...prev];
+      newReports[currentDamageIndex] = damage;
+      return newReports;
+    });
     setShowAddDamage(false);
   };
 
-  const hasDamageReported = () => {
-    if (!damageReport) return false;
-    return damageReport.structuralBodyDamage || 
-           damageReport.componentAttachmentDamage || 
-           damageReport.tireTrackDamage || 
-           damageReport.overallConditionNotAcceptable ||
-           damageReport.comment.trim() !== '';
+  const hasDamageReported = (index?: number) => {
+    if (index !== undefined) {
+      // Check specific index for 20-photo layout
+      const damage = damageReports[index];
+      if (!damage) return false;
+      return damage.structuralBodyDamage || 
+             damage.componentAttachmentDamage || 
+             damage.tireTrackDamage || 
+             damage.overallConditionNotAcceptable ||
+             damage.comment.trim() !== '';
+    } else {
+      // Check index 0 for 2/5-photo layout
+      const damage = damageReports[0];
+      if (!damage) return false;
+      return damage.structuralBodyDamage || 
+             damage.componentAttachmentDamage || 
+             damage.tireTrackDamage || 
+             damage.overallConditionNotAcceptable ||
+             damage.comment.trim() !== '';
+    }
   };
   
   if (!equipment) {
@@ -408,15 +442,15 @@ export function ConditionReport() {
                 />
                 <button
                   type="button"
-                  onClick={handleShowAddDamage}
+                  onClick={() => handleShowAddDamage(index)}
                   className={`p-2 rounded-lg transition-colors ${
-                    hasDamageReported() 
+                    hasDamageReported(index) 
                       ? 'text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/30 bg-orange-100 dark:bg-orange-900/30' 
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
-                  aria-label={hasDamageReported() ? "Damage reported" : "Add damage"}
+                  aria-label={hasDamageReported(index) ? "Damage reported" : "Add damage"}
                 >
-                  <AlertTriangle className={`w-5 h-5 ${hasDamageReported() ? 'stroke-current' : ''}`} />
+                  <AlertTriangle className={`w-5 h-5 ${hasDamageReported(index) ? 'stroke-current' : ''}`} />
                 </button>
               </div>
             </div>
@@ -436,7 +470,8 @@ export function ConditionReport() {
   if (showAddDamage) {
     return (
       <AddDamage
-        initialDamage={damageReport || undefined}
+        initialDamage={damageReports[currentDamageIndex] || undefined}
+        photoIndex={equipment.category >= 700 ? currentDamageIndex : undefined}
         onCancel={handleAddDamageCancel}
         onDone={handleAddDamageDone}
       />
@@ -488,13 +523,13 @@ export function ConditionReport() {
             
             {renderPhotoInputs()}
             
-            {/* Existing Damage Button for categories < 2000 */}
-            {equipment.category < 2000 && (
+            {/* Existing Damage Button for categories < 700 (2-photo and 5-photo layouts) */}
+            {equipment.category < 700 && (
               <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <Button
                   type="button"
                   variant={hasDamageReported() ? "primary" : "secondary"}
-                  onClick={handleShowAddDamage}
+                  onClick={() => handleShowAddDamage(0)}
                   icon={Camera}
                   iconPosition="left"
                   className={`w-full ${hasDamageReported() ? 'bg-orange-500 hover:bg-orange-600 focus:ring-orange-500' : ''}`}

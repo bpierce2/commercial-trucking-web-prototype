@@ -7,6 +7,7 @@ import type { DamageReport, PhotoUpload } from '../types';
 
 interface AddDamageProps {
   initialDamage?: DamageReport;
+  photoIndex?: number;
   onCancel: () => void;
   onDone: (damage: DamageReport) => void;
 }
@@ -38,7 +39,7 @@ const DAMAGE_TYPES = [
   },
 ];
 
-export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
+export function AddDamage({ initialDamage, photoIndex, onCancel, onDone }: AddDamageProps) {
   const [damage, setDamage] = useState<DamageReport>(initialDamage || {
     structuralBodyDamage: false,
     componentAttachmentDamage: false,
@@ -127,7 +128,7 @@ export function AddDamage({ initialDamage, onCancel, onDone }: AddDamageProps) {
   return (
     <>
       <Header 
-        title="Add Damage" 
+        title={photoIndex !== undefined ? `Add Damage - Photo ${photoIndex + 1}` : "Add Damage"} 
         showBackButton={false}
         rightContent={
           <button

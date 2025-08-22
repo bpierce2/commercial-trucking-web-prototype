@@ -46,7 +46,7 @@ export interface ConditionReport {
   equipmentNumber: string;
   hourMeterReading: number;
   photos: PhotoUpload[];
-  damageReport?: DamageReport;
+  damageReports?: (DamageReport | null)[];
   submittedAt: Date;
 }
 
