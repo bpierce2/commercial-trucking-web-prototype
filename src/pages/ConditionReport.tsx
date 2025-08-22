@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Camera, AlertTriangle } from 'lucide-react';
+import { Camera, AlertTriangle, Check } from 'lucide-react';
 import { Header } from '../components/layout/Header';
 import { PageWrapper } from '../components/layout/PageWrapper';
 import { EquipmentDetailHeaderCard } from '../components/cards/EquipmentDetailHeaderCard';
@@ -445,12 +445,16 @@ export function ConditionReport() {
                   onClick={() => handleShowAddDamage(index)}
                   className={`p-2 rounded-lg transition-colors ${
                     hasDamageReported(index) 
-                      ? 'text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/30 bg-orange-100 dark:bg-orange-900/30' 
+                      ? 'text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 hover:bg-yellow-50 dark:hover:bg-yellow-900/30 bg-yellow-100 dark:bg-yellow-900/30' 
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
                   aria-label={hasDamageReported(index) ? "Damage reported" : "Add damage"}
                 >
-                  <AlertTriangle className={`w-5 h-5 ${hasDamageReported(index) ? 'stroke-current' : ''}`} />
+                  {hasDamageReported(index) ? (
+                    <Check className="w-5 h-5 stroke-current" />
+                  ) : (
+                    <AlertTriangle className="w-5 h-5" />
+                  )}
                 </button>
               </div>
             </div>

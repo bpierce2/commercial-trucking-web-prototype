@@ -23,7 +23,7 @@ export function Login() {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: name === 'branchCode' ? value.toUpperCase() : value
     }));
     // Clear error when user starts typing
     if (error) setError('');
