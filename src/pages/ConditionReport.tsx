@@ -420,18 +420,31 @@ export function ConditionReport() {
       }
       
       return (
-        <div className="space-y-3">
+        <div className="space-y-1.5">
+          {/* Header */}
+          <div className="grid grid-cols-[1fr_auto_auto] gap-2 py-2 px-1 border-b border-gray-200 dark:border-gray-600">
+            <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+              Damage Area
+            </div>
+            <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center w-12">
+              CR
+            </div>
+            <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center w-12">
+              DMG
+            </div>
+          </div>
+          
           {photos.map((photo, index) => (
-            <div key={photo.id} className="flex items-center justify-between py-2 px-1">
-              {/* Left side: Index and label */}
-              <div className="flex-1">
+            <div key={photo.id} className="grid grid-cols-[1fr_auto_auto] gap-2 items-center py-2 px-1">
+              {/* Damage Area: Index and label */}
+              <div>
                 <span className="text-sm font-medium text-gray-900 dark:text-white">
                   {index + 1}. {photo.label}
                 </span>
               </div>
               
-              {/* Right side: Photo input icon and damage button */}
-              <div className="ml-4 flex items-center space-x-2">
+              {/* CR: Photo input */}
+              <div className="w-12 flex justify-center">
                 <PhotoInputCard
                   id={photo.id}
                   label=""
@@ -440,6 +453,10 @@ export function ConditionReport() {
                   required={photo.required}
                   onFileSelect={(file) => handlePhotoSelect(photo.id, file)}
                 />
+              </div>
+              
+              {/* DMG: Damage button */}
+              <div className="w-12 flex justify-center">
                 <button
                   type="button"
                   onClick={() => handleShowAddDamage(index)}
