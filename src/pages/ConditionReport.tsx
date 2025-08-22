@@ -515,7 +515,7 @@ export function ConditionReport() {
                 Equipment Photos
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                {totalRequired} required, {optionalPhotos} optional • {uploadedCount} uploaded
+                {totalRequired} required, {optionalPhotos > 0 ? `${optionalPhotos} optional,` : ""} {uploadedCount} uploaded
               </p>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div 
