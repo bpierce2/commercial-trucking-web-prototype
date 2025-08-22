@@ -88,7 +88,7 @@ function AppContent() {
             <Route path="/app" element={<Navigate to="/app/home" replace />} />
             
             {/* Catch all route */}
-            <Route path="*" element={<Navigate to="/app/home" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </AppShell>
       </div>
