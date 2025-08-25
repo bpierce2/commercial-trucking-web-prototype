@@ -32,6 +32,7 @@ export function ConditionReport() {
   const [showAddDamage, setShowAddDamage] = useState(false);
   const [damageReports, setDamageReports] = useState<(DamageReport | null)[]>([]);
   const [currentDamageIndex, setCurrentDamageIndex] = useState<number>(0);
+  const [isFormValid, setIsFormValid] = useState(false);
   
   const equipment = equipmentNumber ? getEquipmentByNumber(equipmentNumber) : null;
   
@@ -126,7 +127,26 @@ export function ConditionReport() {
     
     setDamageReports(new Array(damageReportsCount).fill(null));
   }, [equipment, equipmentNumber, navigate]);
+
+  // Check form validity whenever photos or hour meter reading changes
+  React.useEffect(() => {
+    setIsFormValid(checkFormValidity());
+  }, [photos, hourMeterReading]);
   
+  const checkFormValidity = (): boolean => {
+    // Check hour meter reading
+    if (!hourMeterReading.trim()) return false;
+    const reading = parseFloat(hourMeterReading);
+    if (isNaN(reading) || reading < 0) return false;
+    
+    // Check required photos
+    const requiredPhotos = photos.filter(p => p.required);
+    const uploadedRequiredPhotos = requiredPhotos.filter(p => p.file !== null);
+    if (uploadedRequiredPhotos.length < requiredPhotos.length) return false;
+    
+    return true;
+  };
+
   const convertFileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -589,7 +609,7 @@ export function ConditionReport() {
             type="submit"
             onClick={handleSubmit}
             className="flex-1"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !isFormValid}
           >
             {isSubmitting ? 'Submitting...' : 'Submit Report'}
           </Button>
