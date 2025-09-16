@@ -8,7 +8,7 @@ import { EquipmentDetailHeaderCard } from '../components/cards/EquipmentDetailHe
 import { Button } from '../components/ui/Button';
 import { Modal } from '../components/ui/Modal';
 import { useData } from '../hooks/useData';
-import type { PhotoUpload, DamageReport } from '../types';
+import type { PhotoUpload, DamageReport, SimpleDamageReport } from '../types';
 
 const DAMAGE_TYPES = [
   { key: 'structuralBodyDamage' as keyof DamageReport, label: 'Structural/Body Damage', commentKey: 'structuralBodyDamageComment' as keyof DamageReport, photoKey: 'structuralBodyDamagePhoto' as keyof DamageReport },
@@ -25,9 +25,17 @@ export function EquipmentDetail() {
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
 
   // Helper function to check if damage report has any damage items
-  const hasDamageItems = (damageReport: DamageReport) => {
-    return DAMAGE_TYPES.some(type => damageReport[type.key] as boolean) || 
-           (damageReport.comment && damageReport.comment.trim() !== '');
+  const hasDamageItems = (damageReport: DamageReport | SimpleDamageReport) => {
+    // Check if it's a SimpleDamageReport
+    if ('photo' in damageReport) {
+      const simpleDamage = damageReport as SimpleDamageReport;
+      return simpleDamage.photo !== undefined || (simpleDamage.comment && simpleDamage.comment.trim() !== '');
+    }
+    
+    // Handle as DamageReport
+    const complexDamage = damageReport as DamageReport;
+    return DAMAGE_TYPES.some(type => complexDamage[type.key] as boolean) || 
+           (complexDamage.comment && complexDamage.comment.trim() !== '');
   };
   
   if (!equipmentNumber) {
@@ -195,29 +203,23 @@ export function EquipmentDetail() {
                         </h4>
                       )}
                       
-                      {/* Checked damage types for this report */}
-                      {DAMAGE_TYPES.filter(type => damageReport[type.key] as boolean).map((type) => (
-                        <div key={`${reportIndex}-${type.key}`} className="border-l-4 border-red-300 pl-4 py-2">
-                          <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">{type.label}</h5>
+                      {/* Handle different damage report types */}
+                      {'photo' in damageReport ? (
+                        // SimpleDamageReport rendering
+                        <div className="border-l-4 border-red-300 pl-4 py-2">
+                          <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">Damage Reported</h5>
                           
-                          {/* Additional comment for this damage type */}
-                          {damageReport[type.commentKey] && (
-                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                              {damageReport[type.commentKey] as string}
-                            </p>
-                          )}
-                          
-                          {/* Photo for this damage type */}
-                          {damageReport[type.photoKey] && (
-                            <div className="flex space-x-3">
+                          {/* Photo for simplified damage report */}
+                          {(damageReport as SimpleDamageReport).photo && (
+                            <div className="flex space-x-3 mb-2">
                               <div className="flex-shrink-0">
                                 <div 
                                   className="w-16 h-16 relative cursor-pointer hover:opacity-80 transition-opacity"
-                                  onClick={() => handlePhotoClick(damageReport[type.photoKey] as PhotoUpload)}
+                                  onClick={() => handlePhotoClick((damageReport as SimpleDamageReport).photo!)}
                                 >
                                   <img
-                                    src={(damageReport[type.photoKey] as PhotoUpload).base64Data}
-                                    alt={(damageReport[type.photoKey] as PhotoUpload).filename}
+                                    src={(damageReport as SimpleDamageReport).photo!.base64Data}
+                                    alt={(damageReport as SimpleDamageReport).photo!.filename}
                                     className="w-full h-full object-cover rounded-lg border border-gray-200 dark:border-gray-600"
                                   />
                                   {/* Orange warning badge for damage photos */}
@@ -233,7 +235,47 @@ export function EquipmentDetail() {
                             </div>
                           )}
                         </div>
-                      ))}
+                      ) : (
+                        // DamageReport rendering (existing complex damage types)
+                        DAMAGE_TYPES.filter(type => (damageReport as DamageReport)[type.key] as boolean).map((type) => (
+                          <div key={`${reportIndex}-${type.key}`} className="border-l-4 border-red-300 pl-4 py-2">
+                            <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">{type.label}</h5>
+                            
+                            {/* Additional comment for this damage type */}
+                            {(damageReport as DamageReport)[type.commentKey] && (
+                              <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
+                                {(damageReport as DamageReport)[type.commentKey] as string}
+                              </p>
+                            )}
+                            
+                            {/* Photo for this damage type */}
+                            {(damageReport as DamageReport)[type.photoKey] && (
+                              <div className="flex space-x-3">
+                                <div className="flex-shrink-0">
+                                  <div 
+                                    className="w-16 h-16 relative cursor-pointer hover:opacity-80 transition-opacity"
+                                    onClick={() => handlePhotoClick((damageReport as DamageReport)[type.photoKey] as PhotoUpload)}
+                                  >
+                                    <img
+                                      src={((damageReport as DamageReport)[type.photoKey] as PhotoUpload).base64Data}
+                                      alt={((damageReport as DamageReport)[type.photoKey] as PhotoUpload).filename}
+                                      className="w-full h-full object-cover rounded-lg border border-gray-200 dark:border-gray-600"
+                                    />
+                                    {/* Orange warning badge for damage photos */}
+                                    <div className="absolute -top-1 -right-1">
+                                      <div className="w-4 h-4 bg-orange-500 rounded-full flex items-center justify-center border-2 border-white shadow-sm">
+                                        <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                          <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                                        </svg>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))
+                      )}
                       
                       {/* General damage comment for this report */}
                       {damageReport.comment && damageReport.comment.trim() !== '' && (

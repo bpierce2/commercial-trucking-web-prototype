@@ -128,12 +128,7 @@ export function ConditionReport() {
     setDamageReports(new Array(damageReportsCount).fill(null));
   }, [equipment, equipmentNumber, navigate]);
 
-  // Check form validity whenever photos or hour meter reading changes
-  React.useEffect(() => {
-    setIsFormValid(checkFormValidity());
-  }, [photos, hourMeterReading]);
-  
-  const checkFormValidity = (): boolean => {
+  const checkFormValidity = React.useCallback((): boolean => {
     // Check hour meter reading
     if (!hourMeterReading.trim()) return false;
     const reading = parseFloat(hourMeterReading);
@@ -145,7 +140,12 @@ export function ConditionReport() {
     if (uploadedRequiredPhotos.length < requiredPhotos.length) return false;
     
     return true;
-  };
+  }, [hourMeterReading, photos]);
+
+  // Check form validity whenever photos or hour meter reading changes
+  React.useEffect(() => {
+    setIsFormValid(checkFormValidity());
+  }, [checkFormValidity]);
 
   const convertFileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
