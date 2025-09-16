@@ -40,13 +40,19 @@ export interface DamageReport {
   overallConditionNotAcceptablePhoto?: PhotoUpload;
 }
 
+// Simplified Damage Report for 20-photo layout
+export interface SimpleDamageReport {
+  photo?: PhotoUpload;
+  comment: string;
+}
+
 // Condition Report Types
 export interface ConditionReport {
   id: string;
   equipmentNumber: string;
   hourMeterReading: number;
   photos: PhotoUpload[];
-  damageReports?: (DamageReport | null)[];
+  damageReports?: (DamageReport | SimpleDamageReport | null)[];
   submittedAt: Date;
 }
 

@@ -9,7 +9,7 @@ import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
 import { AddDamage } from '../components/AddDamage';
 import { useData } from '../hooks/useData';
-import type { PhotoUpload, ConditionReport as ConditionReportType, DamageReport } from '../types';
+import type { PhotoUpload, ConditionReport as ConditionReportType, DamageReport, SimpleDamageReport } from '../types';
 
 interface PhotoState {
   id: string;
@@ -30,7 +30,7 @@ export function ConditionReport() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showAddDamage, setShowAddDamage] = useState(false);
-  const [damageReports, setDamageReports] = useState<(DamageReport | null)[]>([]);
+  const [damageReports, setDamageReports] = useState<(DamageReport | SimpleDamageReport | null)[]>([]);
   const [currentDamageIndex, setCurrentDamageIndex] = useState<number>(0);
   const [isFormValid, setIsFormValid] = useState(false);
   
@@ -281,7 +281,7 @@ export function ConditionReport() {
     setShowAddDamage(false);
   };
 
-  const handleAddDamageDone = (damage: DamageReport) => {
+  const handleAddDamageDone = (damage: DamageReport | SimpleDamageReport) => {
     setDamageReports(prev => {
       const newReports = [...prev];
       newReports[currentDamageIndex] = damage;
@@ -292,23 +292,33 @@ export function ConditionReport() {
 
   const hasDamageReported = (index?: number) => {
     if (index !== undefined) {
-      // Check specific index for 20-photo layout
+      // Check specific index for 20-photo layout (SimpleDamageReport)
       const damage = damageReports[index];
       if (!damage) return false;
-      return damage.structuralBodyDamage || 
-             damage.componentAttachmentDamage || 
-             damage.tireTrackDamage || 
-             damage.overallConditionNotAcceptable ||
-             damage.comment.trim() !== '';
+      
+      // For 20-photo layout, check if it has photo or comment
+      if (equipment?.category && equipment.category >= 700) {
+        const simpleDamage = damage as SimpleDamageReport;
+        return simpleDamage.photo !== undefined || simpleDamage.comment.trim() !== '';
+      }
+      
+      // Fallback to complex damage report check
+      const complexDamage = damage as DamageReport;
+      return complexDamage.structuralBodyDamage || 
+             complexDamage.componentAttachmentDamage || 
+             complexDamage.tireTrackDamage || 
+             complexDamage.overallConditionNotAcceptable ||
+             complexDamage.comment.trim() !== '';
     } else {
-      // Check index 0 for 2/5-photo layout
+      // Check index 0 for 2/5-photo layout (DamageReport)
       const damage = damageReports[0];
       if (!damage) return false;
-      return damage.structuralBodyDamage || 
-             damage.componentAttachmentDamage || 
-             damage.tireTrackDamage || 
-             damage.overallConditionNotAcceptable ||
-             damage.comment.trim() !== '';
+      const complexDamage = damage as DamageReport;
+      return complexDamage.structuralBodyDamage || 
+             complexDamage.componentAttachmentDamage || 
+             complexDamage.tireTrackDamage || 
+             complexDamage.overallConditionNotAcceptable ||
+             complexDamage.comment.trim() !== '';
     }
   };
   
@@ -513,6 +523,7 @@ export function ConditionReport() {
       <AddDamage
         initialDamage={damageReports[currentDamageIndex] || undefined}
         photoIndex={equipment.category >= 700 ? currentDamageIndex : undefined}
+        isSimplified={equipment.category >= 700}
         onCancel={handleAddDamageCancel}
         onDone={handleAddDamageDone}
       />
