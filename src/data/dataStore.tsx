@@ -171,15 +171,18 @@ export function DataProvider({ children }: DataProviderProps) {
     return [
       {
         ...homeCards[0],
-        count: availableDeliveries
+        count: availableDeliveries,
+        showCount: true
       },
       {
         ...homeCards[1],
-        count: availablePickups
+        count: availablePickups,
+        showCount: true
       },
       {
         ...homeCards[2],
-        count: totalAvailable
+        count: totalAvailable,
+        showCount: false
       }
     ];
   };

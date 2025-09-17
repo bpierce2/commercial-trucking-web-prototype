@@ -35,6 +35,7 @@ export interface DataContextType {
     title: string;
     description: string;
     navigationPath: string;
+    showCount?: boolean;
   }>;
   getBranchByCode: (code: string) => Branch | undefined;
   resetData: () => void;

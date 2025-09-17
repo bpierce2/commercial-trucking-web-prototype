@@ -32,6 +32,7 @@ export function Home() {
                 title={card.title}
                 description={card.description}
                 navigationPath={card.navigationPath}
+                showCount={card.showCount}
               />
             ))}
           </div>

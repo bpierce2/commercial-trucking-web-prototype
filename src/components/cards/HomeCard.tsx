@@ -7,16 +7,18 @@ interface HomeCardProps {
   title: string;
   description: string;
   navigationPath: string;
+  showCount?: boolean;
   className?: string;
 }
 
-export function HomeCard({ 
-  icon, 
-  count, 
-  title, 
-  description, 
+export function HomeCard({
+  icon,
+  count,
+  title,
+  description,
   navigationPath,
-  className = '' 
+  showCount = true,
+  className = ''
 }: HomeCardProps) {
   // Dynamically get the icon component from lucide-react
   const IconComponent = (Icons as any)[icon] || Icons.Package;
@@ -44,11 +46,13 @@ export function HomeCard({
       `}
     >
       {/* Count Badge (positioned absolutely in top-right) */}
-      <div className="absolute top-3 right-3 z-10">
-        <div className="px-2 py-1 bg-blue-500 text-white text-sm font-semibold rounded-full min-w-[28px] text-center">
-          {count}
+      {showCount && (
+        <div className="absolute top-3 right-3 z-10">
+          <div className="px-2 py-1 bg-blue-500 text-white text-sm font-semibold rounded-full min-w-[28px] text-center">
+            {count}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="flex items-start space-x-3">
         {/* Icon */}
@@ -59,7 +63,7 @@ export function HomeCard({
         </div>
         
         {/* Content */}
-        <div className="flex-1 min-w-0 pr-12">
+        <div className={`flex-1 min-w-0 ${showCount ? 'pr-12' : 'pr-4'}`}>
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
             {title}
           </h3>
